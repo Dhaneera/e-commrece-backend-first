@@ -1,14 +1,15 @@
 package edu.icet.clothify.entity;
 
+import edu.icet.clothify.util.converter.PaymentStatusConverter;
+import edu.icet.clothify.util.converter.PaymentTypeConverter;
+import edu.icet.clothify.util.enums.PaymentStatus;
+import edu.icet.clothify.util.enums.PaymentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.util.converter.PaymentStatusConverter;
-import org.example.util.converter.PaymentTypeConverter;
-import org.example.util.enums.PaymentStatus;
-import org.example.util.enums.PaymentType;
+
 
 
 @Entity

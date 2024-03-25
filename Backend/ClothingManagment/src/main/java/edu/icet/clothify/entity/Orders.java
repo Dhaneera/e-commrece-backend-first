@@ -1,12 +1,13 @@
 package edu.icet.clothify.entity;
 
+import edu.icet.clothify.util.converter.OrderStatusConverter;
+import edu.icet.clothify.util.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.util.converter.OrderStatusConverter;
-import org.example.util.enums.OrderStatus;
+
 
 
 @Entity
@@ -59,6 +60,6 @@ public class Orders {
     private Payment payment;
 
     @Convert(converter =  OrderStatusConverter.class)
-    private  OrderStatus status;
+    private OrderStatus status;
 
 }
