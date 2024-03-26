@@ -4,10 +4,12 @@ import edu.icet.clothify.entity.Cart;
 import edu.icet.clothify.entity.Product;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class StockDto {
@@ -17,7 +19,6 @@ public class StockDto {
     private String size;
     private String price;
     private String qty;
-
-//    private Cart cart;
-//    private Product product;
+    private Cart cart;
+    private Product product;
 }
