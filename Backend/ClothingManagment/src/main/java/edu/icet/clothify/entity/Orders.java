@@ -34,16 +34,16 @@ public class Orders {
     private String phone;
 
     @Column(name ="Tax" , nullable = false)
-    private String tax;
+    private Double tax;
 
     @Column(name ="Delivery Charge" , nullable = false)
-    private String charge;
+    private Double charge;
 
     @Column(name = "Land Code" , nullable = false)
     private String zipCode;
 
     @Column(name = "Order Total" , nullable = false)
-    private Long Tot;
+    private Double Tot;
 
     @Column(name = "City" , nullable = false)
     private String city;

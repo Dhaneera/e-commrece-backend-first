@@ -15,7 +15,7 @@ public class SalesDto {
 
     @NotNull
     private Long id;
-    private  String price;
+    private  Double price;
     private String qty;
     private Product product;
 }

@@ -2,28 +2,19 @@ package edu.icet.clothify.dto;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import edu.icet.clothify.entity.Category;
-import edu.icet.clothify.entity.Collection;
-import edu.icet.clothify.entity.SubCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.hibernate.validator.constraints.UniqueElements;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
+@Builder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ProductDto {
+public class CategoryDto {
     private Long id;
+    @UniqueElements
     private String name;
-    private  String desc;
-    private double price;
-    private int soldCount;
-    private byte[] imageData;
-    private Category category;
-    private Collection collection;
-    private SubCategory subCategory;
 }

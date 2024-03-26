@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+
 //@Entity
 //@Builder
 //@NoArgsConstructor
@@ -64,9 +66,9 @@ public class Stock {
     private String size;
 
     @Column(name = "price")
-    private String price;
+    private Double price;
 
     @Column(name = "quantity")
-    private String qty;
+    private int qty;
 
 }

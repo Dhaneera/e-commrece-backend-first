@@ -23,7 +23,7 @@ public class Sales {
     private Product product;
 
     @Column(name = "Total Price")
-    private  String price;
+    private  Double price;
 
     @Column(name = "Total Quantity")
     private String qty;

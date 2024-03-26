@@ -22,10 +22,10 @@ public class OrdersDto {
     private Cart cart;
     private String address;
     private String phone;
-    private String tax;
+    private Double tax;
     private String charge;
     private String zipCode;
-    private Long Tot;
+    private Double Tot;
     private String city;
     private BillingInfo billingInfo;
     private Customer customer;

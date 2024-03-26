@@ -1,19 +1,19 @@
 package edu.icet.clothify.dto;
-import edu.icet.clothify.entity.Stock;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CartDto {
-    @NotNull
+public class BillingInfoDto {
     private Long id;
-    private Stock stockId;
-    private int qty;
-    private Double productTot;
+    private OrdersDto order;
+    private CustomerDto customer;
+    private String address;
+    private String phone;
+
 }

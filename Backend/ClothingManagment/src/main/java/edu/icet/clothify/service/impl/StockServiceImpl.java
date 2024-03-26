@@ -26,12 +26,12 @@ import org.springframework.stereotype.Service;
         return stockRepository.save(stock);
     }
 
-    @Override
-    public Boolean addStock(StockDto stockDto) {
-        Stock stock=mapper.convertValue(stockDto,Stock.class);
-        Stock saved = stockRepository.save(stock);
-        return saved.getId() != null;
-    }
+//    @Override
+//    public Boolean addStock(StockDto stockDto) {
+//        Stock stock=mapper.convertValue(stockDto,Stock.class);
+//        Stock saved = stockRepository.save(stock);
+//        return saved.getId() != null;
+//    }
 
     @Override
     public Stock updateStock(Long id, Stock stock) {
@@ -44,7 +44,6 @@ import org.springframework.stereotype.Service;
 
     @Override
     public void deleteProduct(Long id) {
-//        stockRepository.deleteById(id);
         if (stockRepository.existsById(id)){
             stockRepository.deleteById(id);
         }else {

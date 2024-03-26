@@ -25,7 +25,7 @@ public class Cart {
     private int qty;
 
     @Column(name = "Product Total")
-    private int productTot;
+    private Double productTot;
 
     @OneToOne(mappedBy = "cart")
     private Orders orders;

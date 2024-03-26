@@ -17,8 +17,8 @@ public class StockDto {
     private Long id;
     private String color;
     private String size;
-    private String price;
-    private String qty;
+    private Double price;
+    private int qty;
     private Cart cart;
     private Product product;
 }

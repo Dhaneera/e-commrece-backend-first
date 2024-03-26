@@ -5,7 +5,7 @@ import edu.icet.clothify.entity.Stock;
 
 public interface StockService {
     public Stock addStock(Stock stock);
-    public Boolean addStock(StockDto stockDto);
+//    public Boolean addStock(StockDto stockDto);
     public Stock updateStock(Long id, Stock stock);
      void deleteProduct(Long id);
 }

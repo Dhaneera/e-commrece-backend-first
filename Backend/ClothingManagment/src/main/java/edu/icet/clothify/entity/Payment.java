@@ -27,7 +27,7 @@ public class Payment {
     @JoinColumn(name = "orders_id")
     private Orders orders;
     @Column(name = "Payment Total" , nullable = false)
-    private String Tot;
+    private Double Tot;
 
     @Column(name = "Payment Status")
     @Convert(converter =  PaymentStatusConverter.class)
