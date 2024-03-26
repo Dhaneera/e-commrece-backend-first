@@ -44,7 +44,12 @@ import org.springframework.stereotype.Service;
 
     @Override
     public void deleteProduct(Long id) {
-        stockRepository.deleteById(id);
+//        stockRepository.deleteById(id);
+        if (stockRepository.existsById(id)){
+            stockRepository.deleteById(id);
+        }else {
+            throw new ResourceNotFoundException("stock info not available for this id to delete: "+id);
+        }
     }
 
 }
