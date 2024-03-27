@@ -22,10 +22,10 @@ public class CartServiceImpl implements CartService {
     }
 
 
-    @Override
-    public Cart addCart(Cart cart) {
-        return cartRepository.save(cart);
-    }
+//    @Override
+//    public Cart addCart(Cart cart) {
+//        return cartRepository.save(cart);
+//    }
 
     @Override
     public Boolean addCart(CartDto cartDto) {
@@ -52,5 +52,6 @@ public class CartServiceImpl implements CartService {
         }else {
             throw new ResourceNotFoundException("card info not available for this id to delete: "+id);
         }
+
     }
 }

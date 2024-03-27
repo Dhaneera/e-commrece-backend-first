@@ -9,8 +9,13 @@ import edu.icet.clothify.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
-    public class StockServiceImpl implements StockService {
+    public class    StockServiceImpl implements StockService {
     @Autowired
     ObjectMapper mapper;
 
@@ -49,6 +54,30 @@ import org.springframework.stereotype.Service;
         }else {
             throw new ResourceNotFoundException("stock info not available for this id to delete: "+id);
         }
+    }
+
+    @Override
+    public List<StockDto> listStock(Long id) {
+        Optional<Stock> stockOptional = stockRepository.findById(id);
+
+        if (stockOptional.isPresent()) {
+            Stock stock = stockOptional.get();
+            List<StockDto> stockDTOList = Collections.singletonList(convertStockToDTO(stock));  // Convert to a single StockDTO
+            return stockDTOList;
+        } else {
+
+            return Collections.emptyList();
+        }
+    }
+    private StockDto convertStockToDTO(Stock stock) {
+        // Implement logic to map Stock entity fields to StockDTO object
+        StockDto stockDTO = new StockDto();
+        stockDTO.setId(stock.getId());
+        stockDTO.setColor(stock.getColor());
+        stockDTO.setSize(stock.getSize());
+        stockDTO.setPrice(stock.getPrice());
+        stockDTO.setQty(stock.getQty());
+        return stockDTO;
     }
 
 }
