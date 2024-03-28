@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 @Data
 @Builder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class CategoryDto {
+public class    CategoryDto {
     private Long id;
     @UniqueElements
     private String name;

@@ -9,6 +9,10 @@ import edu.icet.clothify.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -33,7 +37,8 @@ public class CartServiceImpl implements CartService {
         Cart saved = cartRepository.save(cart);
         return saved.getId() != null;
     }
-    
+
+
 
     @Override
     public Cart upadateCart(Long id, Cart cart) {
@@ -51,5 +56,18 @@ public class CartServiceImpl implements CartService {
         }else {
             throw new ResourceNotFoundException("card info not available for this id to delete: "+id);
         }
+    }
+
+    @Override
+    public List<CartDto> getAllCartDetails() {
+        Iterable<Cart> cartIterable = cartRepository.findAll();
+        Iterator<Cart> cartIterator = cartIterable.iterator();
+        List<CartDto> cartDtos = new ArrayList<>();
+        while(cartIterator.hasNext()){
+            Cart cart = cartIterator.next();
+            CartDto cartDto=mapper.convertValue(cart , CartDto.class);
+            cartDtos.add(cartDto);
+        }
+        return cartDtos;
     }
 }

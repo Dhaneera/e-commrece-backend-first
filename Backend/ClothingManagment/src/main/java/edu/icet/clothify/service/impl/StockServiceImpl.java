@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
 
     @Override
     public List<StockDto> listStock(Long id) {
-        List<Stock> stockList = (List<Stock>) stockRepository.findById(id).orElse((Stock) Collections.emptyList());
+        List<StockDto> stockList = (List<StockDto>) stockRepository.findById(id).orElse((Stock) Collections.emptyList());
         return stockList.stream()
                 .map(stock -> {
                     convertStockToDTO(builder().id, builder().color, builder().size, builder().price, builder().qty);

@@ -11,7 +11,6 @@ public class CustomerDto {
     private String phone;
     private List<Long> orderIds;
     private List<Long> billingInfoIds;
-
-    // private List<OrderDTO> orders;
-    // private List<BillingInfoDTO> billingInfo;
+     private List<OrdersDto> orders;
+     private List<BillingInfoDto> billingInfo;
 }
