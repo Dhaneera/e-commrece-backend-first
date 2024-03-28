@@ -1,5 +1,6 @@
 package edu.icet.clothify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.icet.clothify.util.converter.OrderStatusConverter;
 import edu.icet.clothify.util.enums.OrderStatus;
 import jakarta.persistence.*;
@@ -49,10 +50,12 @@ public class Orders {
     private String city;
 
     @OneToOne(mappedBy = "orders")
+    @JsonIgnore
     private BillingInfo billingInfo;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
 
     @OneToOne(mappedBy = "orders")

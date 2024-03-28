@@ -6,6 +6,7 @@ import edu.icet.clothify.dto.PaymentDto;
 import edu.icet.clothify.entity.Payment;
 import edu.icet.clothify.repository.PaymentRepository;
 import edu.icet.clothify.service.PaymentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,7 @@ public class PaymentServiceImpl implements PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
-    @Override
-    public Payment addPayment(Payment payment) {
-        return paymentRepository.save(payment);
-    }
+
 
     @Override
     public Boolean addPayment(PaymentDto paymentDto) {
@@ -35,9 +33,14 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment upadatePayment(Long id, Payment payment) {
-        if (!paymentRepository.existsById(id)) throw new ResourceNotFoundException("Payment not found with id: " + id);
-        payment.setId(id);
-        return paymentRepository.save(payment);
+    public Payment upadatePayment(Long id, PaymentDto paymentDto) {
+        if (!paymentRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Payment not found with id: " + id);
+        }
+        Payment existingPayment  = paymentRepository.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Payment can't found on this  id: "+id));
+        BeanUtils.copyProperties(paymentDto,existingPayment, "id");
+        return paymentRepository.save(existingPayment);
+
     }
 }

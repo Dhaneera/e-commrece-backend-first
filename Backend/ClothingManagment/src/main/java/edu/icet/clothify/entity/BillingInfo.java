@@ -1,5 +1,6 @@
 package edu.icet.clothify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +20,12 @@ public class BillingInfo{
 
     @OneToOne
     @JoinColumn(name = "orders_id")
+    @JsonIgnore
     private Orders orders;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
 
     @Column(name = "Address",nullable = false)

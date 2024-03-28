@@ -1,5 +1,7 @@
 package edu.icet.clothify.controller;
+import edu.icet.clothify.dto.CustomerDto;
 import edu.icet.clothify.dto.StockDto;
+import edu.icet.clothify.entity.Customer;
 import edu.icet.clothify.entity.Stock;
 import edu.icet.clothify.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,12 @@ public class StockController {
         List<StockDto> stockDTOList = stockService.listStock(id);
         return ResponseEntity.ok(stockDTOList);
     }
-
+    @PutMapping ("/update/{id}")
+    public Stock updateStock(@PathVariable Long id, @RequestBody StockDto stockDto) {
+        return stockService.updateStock(id, stockDto);
+    }
+    @DeleteMapping("/remove/{id}")
+    public Boolean  deleteStock(@PathVariable Long id){
+        return stockService.deleteStock(id);
+    }
 }

@@ -6,6 +6,7 @@ import edu.icet.clothify.dto.CartDto;
 import edu.icet.clothify.entity.Cart;
 import edu.icet.clothify.repository.CartRepository;
 import edu.icet.clothify.service.CartService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +42,15 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public Cart upadateCart(Long id, Cart cart) {
+    public Cart upadateCart(Long id, CartDto cartDto) {
         if (!cartRepository.existsById(id)){
             throw new ResourceNotFoundException("Cart item not found : "+id);
         }
-        cart.setId(id);
-        return cartRepository.save(cart);
+        Cart existingCart =cartRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Customer not found with this id: " + id));
+
+        BeanUtils.copyProperties(cartDto,existingCart,"id");
+        return cartRepository.save(existingCart);
     }
 
     @Override

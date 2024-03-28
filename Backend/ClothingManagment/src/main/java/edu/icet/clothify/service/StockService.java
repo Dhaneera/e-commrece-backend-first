@@ -9,8 +9,8 @@ public interface StockService {
 
     Boolean addStock(StockDto stockDto);
 
-    public Stock updateStock(Long id, Stock stock);
-     void deleteProduct(Long id);
+    public Stock updateStock(Long id, StockDto stockDto);
+     Boolean deleteStock(Long id);
 
     List<StockDto> listStock(Long id);
 

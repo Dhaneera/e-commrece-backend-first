@@ -1,5 +1,7 @@
 package edu.icet.clothify.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.icet.clothify.entity.BillingInfo;
 import edu.icet.clothify.entity.Cart;
 import edu.icet.clothify.entity.Customer;
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class OrdersDto {
     @NotNull
     private Long id;
