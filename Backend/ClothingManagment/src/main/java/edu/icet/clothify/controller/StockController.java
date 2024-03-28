@@ -13,17 +13,14 @@ import java.util.List;
 @RequestMapping("/api/stock")
 public class StockController {
     @Autowired
-    private final StockService stockService;
+    StockService stockService;
 
-    public StockController(StockService stockService) {
-        this.stockService = stockService;
-    }
     @PostMapping("/add")
-    public Stock addStock(@RequestBody Stock stock) {
+    public boolean addStock(@RequestBody StockDto stock) {
         return stockService.addStock(stock);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<List<StockDto>> listStock(@PathVariable Long id) {
         List<StockDto> stockDTOList = stockService.listStock(id);
         return ResponseEntity.ok(stockDTOList);

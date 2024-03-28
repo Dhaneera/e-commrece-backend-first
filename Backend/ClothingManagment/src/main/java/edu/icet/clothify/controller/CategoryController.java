@@ -1,11 +1,11 @@
 package edu.icet.clothify.controller;
+
 import edu.icet.clothify.dto.CategoryDto;
 import edu.icet.clothify.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @CrossOrigin

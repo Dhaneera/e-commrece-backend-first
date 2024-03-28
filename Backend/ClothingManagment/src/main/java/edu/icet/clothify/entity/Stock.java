@@ -1,5 +1,6 @@
 package edu.icet.clothify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -56,7 +57,8 @@ public class Stock {
     @JoinColumn(name = "productId")
     private Product product;
 
-    @OneToOne(mappedBy = "stockId") // Update mappedBy to match the property name in the Cart entity
+    @OneToOne(mappedBy = "stockId")
+    @JsonIgnore// Update mappedBy to match the property name in the Cart entity
     private Cart cart;
 
     @Column(name = "Color")
