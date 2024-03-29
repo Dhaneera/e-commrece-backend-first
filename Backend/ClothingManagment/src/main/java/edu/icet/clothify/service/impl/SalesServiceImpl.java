@@ -39,10 +39,10 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
-    public void deleteSales(Long id) {
-//        salesRepository.deleteById(id);
+    public Boolean deleteSales(Long id) {
         if (salesRepository.existsById(id)){
             salesRepository.deleteById(id);
+            return true;
         }else {
             throw new ResourceNotFoundException("no sales info not available for this id to delete: "+id);
         }

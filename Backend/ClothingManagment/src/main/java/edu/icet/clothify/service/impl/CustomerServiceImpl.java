@@ -43,8 +43,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto getCustomerByName(String  name) {
-        Customer customer = customerRepository.getByName(name);
-        return mapper.convertValue(customer , CustomerDto.class);
+        try {
+            Customer customer = customerRepository.getByName(name);
+            return mapper.convertValue(customer , CustomerDto.class);
+        }catch (Exception exception){
+            return null;
+
+        }
     }
 
 }

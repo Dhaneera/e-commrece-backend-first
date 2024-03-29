@@ -10,6 +10,6 @@ public interface CartService {
 
     public Boolean addCart(CartDto cartDto);
     public Cart upadateCart(Long id, CartDto cart);
-    void deleteCart(Long id);
+    Boolean deleteCart(Long id);
     List<CartDto> getAllCartDetails();
 }

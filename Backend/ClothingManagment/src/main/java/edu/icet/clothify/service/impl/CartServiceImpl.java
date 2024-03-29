@@ -54,9 +54,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteCart(Long id) {
+    public Boolean deleteCart(Long id) {
         if (cartRepository.existsById(id)){
             cartRepository.deleteById(id);
+            return true;
         }else {
             throw new ResourceNotFoundException("card info not available for this id to delete: "+id);
         }

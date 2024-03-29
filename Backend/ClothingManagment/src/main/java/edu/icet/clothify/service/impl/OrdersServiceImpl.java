@@ -32,9 +32,10 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void deleteOrders(Long id) {
+    public Boolean deleteOrders(Long id) {
         if (ordersRepository.existsById(id)){
             ordersRepository.deleteById(id);
+            return true;
         }else {
             throw new ResourceNotFoundException("order is not available for this id to delete: "+id);
         }
