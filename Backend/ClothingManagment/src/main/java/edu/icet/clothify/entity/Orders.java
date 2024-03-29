@@ -58,8 +58,6 @@ public class Orders {
     @JsonIgnore
     private Customer customer;
 
-    @OneToOne(mappedBy = "orders")
-    private Payment payment;
 
     @Convert(converter =  OrderStatusConverter.class)
     private OrderStatus status;

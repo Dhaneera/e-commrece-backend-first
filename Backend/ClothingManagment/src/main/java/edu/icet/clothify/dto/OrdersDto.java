@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.icet.clothify.entity.BillingInfo;
 import edu.icet.clothify.entity.Cart;
 import edu.icet.clothify.entity.Customer;
-import edu.icet.clothify.entity.Payment;
 import edu.icet.clothify.util.enums.OrderStatus;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -45,6 +44,5 @@ public class OrdersDto {
     private String city;
     private BillingInfo billingInfo;
     private Customer customer;
-    private Payment payment;
     private OrderStatus status;
 }

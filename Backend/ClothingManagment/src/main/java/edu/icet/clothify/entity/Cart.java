@@ -20,6 +20,7 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "stock_id")
+    @JsonIgnore
     private Stock stockId;
 
     @Column(name = "Quantity")

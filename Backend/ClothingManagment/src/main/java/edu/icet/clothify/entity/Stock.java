@@ -58,7 +58,7 @@ public class Stock {
     private Product product;
 
     @OneToOne(mappedBy = "stockId")
-    @JsonIgnore// Update mappedBy to match the property name in the Cart entity
+    @JsonIgnore
     private Cart cart;
 
     @Column(name = "Color")
