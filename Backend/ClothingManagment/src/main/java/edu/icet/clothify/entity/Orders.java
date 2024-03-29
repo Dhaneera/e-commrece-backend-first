@@ -21,8 +21,6 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "CustomerID")
-    private String customerId ;
 
     @OneToOne
     @JoinColumn(name = "cart_id")

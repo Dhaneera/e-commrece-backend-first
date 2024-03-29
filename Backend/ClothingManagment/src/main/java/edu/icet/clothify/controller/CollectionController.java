@@ -1,7 +1,7 @@
 package edu.icet.clothify.controller;
 
-import edu.icet.clothify.dto.CategoryDto;
-import edu.icet.clothify.service.CategoryService;
+import edu.icet.clothify.dto.CollectionDto;
+import edu.icet.clothify.service.CollectionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,31 +15,35 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/collection")
 @CrossOrigin
-@RequestMapping("/category")
-public class CategoryController {
+public class CollectionController {
     @Autowired
-    private CategoryService categoryService;
-
+    CollectionService collectionService;
 
     @PostMapping("/add")
-    public boolean addCategory(@Valid  @RequestBody CategoryDto categoryDto){
-        return categoryService.saveCategory(categoryDto);
+    public boolean addSubcategory(@Valid @RequestBody CollectionDto collectionDto){
+        return collectionService.saveCollection(collectionDto);
     }
 
     @GetMapping("/getAll")
-    public List<CategoryDto> getAllCategories(){
-        return categoryService.getAllCategories();
+    public List<CollectionDto> getAllSubCategories(){
+        return collectionService.getAllCollection();
     }
 
-    @GetMapping("/get/{name}")
-    public CategoryDto getCategoryByName(@PathVariable String name){
-       return categoryService.getCategoryByName(name);
+    @GetMapping("/get/{id}")
+    public CollectionDto getCollectionById(@PathVariable Long id){
+        return collectionService.getCollectionById(id);
     }
 
-    @DeleteMapping("/delete/{name}")
-    public Boolean deleteCategoryByName(@PathVariable String name){
-        return categoryService.deleteCategoryByName(name);
+    @DeleteMapping("/delete/{id}")
+    public boolean deleteCollectionById(@PathVariable Long id){
+        boolean isDeleted= collectionService.deleteCollectionById(id);
+        return isDeleted;
+    }
+    @GetMapping("/get/name/{name}")
+    public CollectionDto getCollectionByName(@PathVariable String name){
+        return collectionService.getCategoryByName(name);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

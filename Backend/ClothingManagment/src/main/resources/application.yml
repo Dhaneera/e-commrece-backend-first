@@ -5,7 +5,7 @@ spring:
     password: 992412712V
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 management:
   endpoints:
     web:

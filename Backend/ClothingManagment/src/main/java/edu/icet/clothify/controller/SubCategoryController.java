@@ -1,7 +1,7 @@
 package edu.icet.clothify.controller;
 
-import edu.icet.clothify.dto.CategoryDto;
-import edu.icet.clothify.service.CategoryService;
+import edu.icet.clothify.dto.SubCategoryDto;
+import edu.icet.clothify.service.SubCategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,30 +16,33 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/category")
-public class CategoryController {
+@RequestMapping("/subCategory")
+public class SubCategoryController {
     @Autowired
-    private CategoryService categoryService;
-
-
+    SubCategoryService subCategoryService;
     @PostMapping("/add")
-    public boolean addCategory(@Valid  @RequestBody CategoryDto categoryDto){
-        return categoryService.saveCategory(categoryDto);
+    public boolean addSubcategory(@Valid @RequestBody SubCategoryDto subCategoryDto){
+        return subCategoryService.saveSubCategory(subCategoryDto);
     }
 
     @GetMapping("/getAll")
-    public List<CategoryDto> getAllCategories(){
-        return categoryService.getAllCategories();
+    public List<SubCategoryDto> getAllSubCategories(){
+        return subCategoryService.getAllSubCategories();
     }
 
-    @GetMapping("/get/{name}")
-    public CategoryDto getCategoryByName(@PathVariable String name){
-       return categoryService.getCategoryByName(name);
+    @GetMapping("/get/{id}")
+    public SubCategoryDto getSubcategoryById(@PathVariable Long id){
+        return subCategoryService.getSubCategoryById(id);
     }
 
-    @DeleteMapping("/delete/{name}")
-    public Boolean deleteCategoryByName(@PathVariable String name){
-        return categoryService.deleteCategoryByName(name);
+    @DeleteMapping("/delete/{id}")
+    public String deleteSubCategoryById(@PathVariable Long id){
+       boolean isDeleted= subCategoryService.deleteSubCategoryById(id);
+       return isDeleted ?"Sub category is deleted":"Something went wrong";
+    }
+    @GetMapping("/get/name/{name}")
+    public SubCategoryDto getSubcategoryByName(@PathVariable String name){
+       return subCategoryService.getCategoryByName(name);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
