@@ -32,6 +32,7 @@ public class CartServiceImpl implements CartService {
 //        return cartRepository.save(cart);
 //    }
 
+
     @Override
     public Boolean addCart(CartDto cartDto) {
          Cart cart=mapper.convertValue(cartDto, Cart.class);
@@ -53,15 +54,7 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(existingCart);
     }
 
-    @Override
-    public Boolean deleteCart(Long id) {
-        if (cartRepository.existsById(id)){
-            cartRepository.deleteById(id);
-            return true;
-        }else {
-            throw new ResourceNotFoundException("card info not available for this id to delete: "+id);
-        }
-    }
+
 
     @Override
     public List<CartDto> getAllCartDetails() {
