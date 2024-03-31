@@ -41,6 +41,7 @@ public class StockController {
     public Boolean  deleteStock(@PathVariable Long id){
         return stockService.deleteStock(id);
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String,String> error(MethodArgumentNotValidException exception){

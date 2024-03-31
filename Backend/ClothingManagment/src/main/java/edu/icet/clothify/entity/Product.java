@@ -45,8 +45,6 @@ public class Product {
     @Column(name = "sold_count")
     private int soldCount;
 
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
-    private Sales sales;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Stock> stocks;

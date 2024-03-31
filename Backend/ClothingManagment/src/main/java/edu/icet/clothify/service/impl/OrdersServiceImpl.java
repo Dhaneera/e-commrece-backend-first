@@ -1,6 +1,8 @@
 package edu.icet.clothify.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
+import edu.icet.clothify.dto.OrdersDto;
 import edu.icet.clothify.entity.Orders;
 import edu.icet.clothify.repository.OrdersRepository;
 import edu.icet.clothify.service.OrdersService;
@@ -11,16 +13,14 @@ import org.springframework.stereotype.Service;
 public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
-    private final OrdersRepository ordersRepository;
+    private OrdersRepository ordersRepository;
 
-    public OrdersServiceImpl(OrdersRepository ordersRepository) {
-        this.ordersRepository = ordersRepository;
-    }
+    @Autowired
+    ObjectMapper mapper;
 
-    @Override
-    public Orders addOrders(Orders orders) {
-        return ordersRepository.save(orders);
-    }
+
+
+
 
     @Override
     public Orders updateOrders(Long id, Orders orders) {
@@ -39,5 +39,12 @@ public class OrdersServiceImpl implements OrdersService {
         }else {
             throw new ResourceNotFoundException("order is not available for this id to delete: "+id);
         }
+    }
+
+    @Override
+    public boolean addOrder(OrdersDto orderDto) {
+        Orders orders=mapper.convertValue(orderDto, Orders.class);
+        Orders savedOrders=ordersRepository.save(orders);
+        return savedOrders.getId() != null;
     }
 }

@@ -44,14 +44,4 @@ public class BillingInfoServiceImpl implements BillingInfoService {
               return billingInfoRepository.save(existingbill);
     }
 
-    @Override
-    public Boolean deleteBillingInfo(Long id) {
-        if (billingInfoRepository.existsById(id)){
-            billingInfoRepository.deleteById(id);
-            return true;
-        }else {
-            throw new ResourceNotFoundException("billing info not available for this id to delete: "+id);
-        }
-
-    }
 }

@@ -29,10 +29,7 @@ public class BillInfoController {
     public BillingInfo updateBillinfo(@PathVariable Long id, @RequestBody BillingInfoDto billingInfoDto){
         return  billingInfoService.updateBillingInfo(id,billingInfoDto);
     }
-//    @DeleteMapping("/remove/{id}")
-//    public  Boolean deleteBillinfo(@PathVariable Long id){
-//        return billingInfoService.deleteBillingInfo(id);
-//    }
+
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 @ExceptionHandler(MethodArgumentNotValidException.class)
 public Map<String,String> error(MethodArgumentNotValidException exception){
