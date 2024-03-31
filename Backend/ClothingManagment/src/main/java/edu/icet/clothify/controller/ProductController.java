@@ -25,7 +25,7 @@ public class ProductController {
     @PostMapping("/add")
     public String addProduct(@Valid @RequestBody ProductDto productDto){
         boolean isSaved=productService.addProduct(productDto);
-        if (isSaved==false){
+        if (!isSaved){
             return "unsuccessful due to category,subcategory or collection is empty";
         }
         return "Product successfully saved";

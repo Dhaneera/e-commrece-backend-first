@@ -11,4 +11,5 @@ public interface CartService {
     public Boolean addCart(CartDto cartDto);
     public Cart upadateCart(Long id, CartDto cart);
     List<CartDto> getAllCartDetails();
+
 }

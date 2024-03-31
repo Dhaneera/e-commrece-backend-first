@@ -1,8 +1,8 @@
-package edu.icet.clothify;
+package edu.icet.clothify.repository;
 
+import edu.icet.clothify.config.StockServiceException;
+import edu.icet.clothify.entity.Product;
 import edu.icet.clothify.entity.Stock;
-import edu.icet.clothify.repository.StockRepository;
-import org.assertj.core.api.OptionalAssert;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -11,7 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 @DataJpaTest
 @TestClassOrder(ClassOrderer.OrderAnnotation.class)
@@ -20,6 +21,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 public class StockRepositoryTest {
     @Autowired
     StockRepository stockRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     @Nested
     @Order(1)
@@ -31,11 +34,15 @@ public class StockRepositoryTest {
         @DisplayName("Save stock Repository")
         public void StockRepository_SaveStock_ReturnStockObject() {
             //Given
-            Stock stock = Stock.builder().id(null).price(2000.00).qty(20).color("Red").size("L").product(null).build();
+            Product product= Product.builder().id(null).build();
+            Product saved1 = productRepository.save(product);
             //When
+            Stock stock = Stock.builder().id(null).price(2000.00).qty(20).color("Red").size("L").product(Product.builder().id(saved1.getId()).build()).build();
             Stock saved = stockRepository.save(stock);
             //Then
             Assertions.assertEquals(stock.getId(), saved.getId());
+            Assertions.assertEquals(stock.getProduct().getId(),saved.getProduct().getId());
+
 
         }
     }
@@ -73,7 +80,7 @@ public class StockRepositoryTest {
         @Test
         @Order(1)
         @DisplayName("Delete Stock Repository")
-        public void StockRepository_DeleteStock_ReturnVoid() throws Exception{
+        public void StockRepository_DeleteStock_ReturnVoid()throws StockServiceException {
             //Given
             Stock stock = Stock.builder().id(null).price(2000.00).qty(20).color("Red").size("L").product(null).build();
 
@@ -83,7 +90,30 @@ public class StockRepositoryTest {
             Optional<Stock> byId = stockRepository.findById(stock.getId());
 
             //Then
-            then(Optional.empty())
+            assertNull(byId.orElse(null));
+        }
+
+
+        @Nested
+        @Order(4)
+        @DisplayName("View Repository")
+        class ViewStock{
+
+            @Test
+            @Order(1)
+            @DisplayName("View Stock")
+            public  void  StockRepository_GetById_ReturnVoid(){
+                //Given
+                Stock stock = Stock.builder().id(null).price(2000.00).qty(20).color("Red").size("L").product(null).build();
+
+                //When
+                Stock saveStock =stockRepository.save(stock);
+                Optional<Stock> byId = stockRepository.findById(saveStock.getId());
+                Stock stockGotByOptional=byId.get();
+                //Then
+                Assertions.assertEquals(stockGotByOptional.getId(),saveStock.getId());
+            }
+
         }
     }
 }

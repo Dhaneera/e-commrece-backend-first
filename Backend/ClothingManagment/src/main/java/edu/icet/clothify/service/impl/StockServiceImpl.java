@@ -6,20 +6,13 @@ import edu.icet.clothify.dto.StockDto;
 import edu.icet.clothify.entity.Stock;
 import edu.icet.clothify.repository.StockRepository;
 import edu.icet.clothify.service.StockService;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.DocFlavor;
 import java.util.Collections;
 import java.util.List;
-
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
     public class  StockServiceImpl implements StockService {
@@ -51,6 +44,7 @@ import java.util.stream.Collectors;
         BeanUtils.copyProperties(stockDto,existingStock,"id");
         return stockRepository.save(existingStock);
     }
+
 
     @Override
     public Boolean deleteStock(Long id) {

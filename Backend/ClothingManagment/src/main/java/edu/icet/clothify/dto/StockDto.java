@@ -28,7 +28,6 @@ public class StockDto {
     @NotBlank(message = "contact is null")
     @Size(min = 10,message = "Quantity missing digits")
     private int qty;
-    private Cart cart;
     private Product product;
 
 
