@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.CustomerDto;
 import edu.icet.clothify.entity.Customer;
+import edu.icet.clothify.entity.Orders;
 import edu.icet.clothify.repository.CustomerRepository;
 import edu.icet.clothify.service.CustomerService;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+
 
     @Override
     public Boolean addCustomer(CustomerDto customerDto) {
@@ -41,6 +44,8 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.save(existingCustomer);
     }
 
+
+
     @Override
     public CustomerDto getCustomerByName(String  name) {
         try {
@@ -51,5 +56,14 @@ public class CustomerServiceImpl implements CustomerService {
 
         }
     }
+
+//    @Override
+//    public CustomerDto getCustomerById(Long id) {
+//        Customer customer =customerRepository.findById(id).get();
+//        if (customer.getId()!=null){
+//            CustomerDto customerDto = mapper.convertValue(customer, CustomerDto.class);
+//            customerDto.setOrders(Orders.builder().id(customer.getOrders()).build());
+//        }
+//    }
 
 }

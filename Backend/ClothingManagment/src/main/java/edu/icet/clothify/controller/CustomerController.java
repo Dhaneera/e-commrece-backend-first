@@ -34,6 +34,7 @@ public class CustomerController {
     public Customer updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDto) {
         return customerService.updateCustomer(id, customerDto);
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String,String> error(MethodArgumentNotValidException exception){

@@ -3,6 +3,7 @@ package edu.icet.clothify.repository;
 import edu.icet.clothify.entity.BillingInfo;
 import edu.icet.clothify.entity.Customer;
 import edu.icet.clothify.entity.Orders;
+import edu.icet.clothify.util.enums.OrderStatus;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -35,10 +36,10 @@ public class BillingInfoRepositoryTest {
             Customer customer= Customer.builder().id(null).build();
             Customer save = customerRepository.save(customer);
 
-            Orders orders= Orders.builder().id(null).build();
+            Orders orders= Orders.builder().id(null).status(OrderStatus.valueOf("DELIVERED")).Tot(200.00).build();
             Orders save1 = ordersRepository.save(orders);
             //When
-            BillingInfo billingInfo = BillingInfo.builder().id(null).address("Mount-Lavinia").phone("0777007987").customer(Customer.builder().id(save.getId()).build()).orders(Orders.builder().id(save1.getId()).build()).build();
+            BillingInfo billingInfo = BillingInfo.builder().id(null).address("Mount-Lavinia").phone("0777007987").customer(Customer.builder().id(save.getId()).build()).orders(Orders.builder().status(save1.getStatus()).id(save1.getId()).build()).build();
             BillingInfo saved = billingInfoRepository.save(billingInfo);
             //Then
             Assertions.assertEquals(billingInfo.getId(), saved.getId());

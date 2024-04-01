@@ -2,9 +2,12 @@ package edu.icet.clothify.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
+import edu.icet.clothify.dto.CustomerDto;
 import edu.icet.clothify.dto.OrdersDto;
 import edu.icet.clothify.entity.Orders;
 import edu.icet.clothify.repository.OrdersRepository;
+import edu.icet.clothify.service.CartService;
+import edu.icet.clothify.service.CustomerService;
 import edu.icet.clothify.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +21,15 @@ public class OrdersServiceImpl implements OrdersService {
     @Autowired
     ObjectMapper mapper;
 
+    @Autowired
+    private CustomerService customerService;
 
+    @Autowired
+    private CartService cartService;
 
+    public OrdersServiceImpl(OrdersRepository ordersRepository){
+        this.ordersRepository=ordersRepository;
+    }
 
 
     @Override
@@ -43,8 +53,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public boolean addOrder(OrdersDto orderDto) {
-        Orders orders=mapper.convertValue(orderDto, Orders.class);
-        Orders savedOrders=ordersRepository.save(orders);
-        return savedOrders.getId() != null;
+        return true;
     }
+
 }

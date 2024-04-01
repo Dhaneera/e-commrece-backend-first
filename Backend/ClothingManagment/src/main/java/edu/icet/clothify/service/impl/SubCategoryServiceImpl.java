@@ -1,6 +1,7 @@
 package edu.icet.clothify.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.SubCategoryDto;
 import edu.icet.clothify.entity.SubCategory;
 import edu.icet.clothify.repository.SubCategoryRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,9 +56,14 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
     @Override
     public boolean deleteSubCategoryById(Long id) {
-        subCategoryRepository.deleteById(id);
-       SubCategoryDto subCategoryDto=getSubCategoryById(id);
-        return subCategoryDto == null;
+        if (subCategoryRepository.existsById(id)){
+            subCategoryRepository.deleteById(id);
+            return true;
+        }else {
+            throw new ResourceNotFoundException("SubCategory  not available for this id to delete: "+id);
+
+        }
+
     }
 
     @Override

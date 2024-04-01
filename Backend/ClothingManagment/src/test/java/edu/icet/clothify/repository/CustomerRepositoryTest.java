@@ -68,13 +68,13 @@ public class CustomerRepositoryTest {
             //Then
             Assertions.assertEquals(saved.getName(), "Dashan");
             Assertions.assertEquals(saved.getMail(), "dashanwd@gmail.com");
-            Assertions.assertEquals(saved.getMail(), "0112731626");
+            Assertions.assertEquals(saved.getPhone(), "0112731626");
         }
     }
 
     @Nested
     @Order(3)
-    @DisplayName("Delete Repository")
+    @DisplayName("Get Repository")
     class ViewCustomer {
 
         @Test

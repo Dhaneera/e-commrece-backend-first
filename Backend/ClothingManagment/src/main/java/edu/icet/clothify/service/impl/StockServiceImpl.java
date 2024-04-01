@@ -92,6 +92,7 @@ import java.util.Optional;
         return null;
     }
 
+
     private StockDto    convertStockToDTO(Stock stock) {
         // Implement logic to map Stock entity fields to StockDTO object
         StockDto stockDTO = new StockDto();

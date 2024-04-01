@@ -56,7 +56,6 @@ public class Orders {
     @JsonIgnore
     private Customer customer;
 
-
     @Convert(converter =  OrderStatusConverter.class)
     private OrderStatus status;
 
