@@ -130,5 +130,12 @@ public class ProductServiceImpl implements ProductService {
         }
         return listOfSpecificProducts;
     }
+
+    @Override
+    public ProductDto getProductByName(String name) {
+        Product product = productRepository.getByName(name);
+        return objectMapper.convertValue(product,ProductDto.class);
+
+    }
     //TODO IF NEEDED SUBCATEGORY OR COLLECTION BY GETTING PRODUCT CAN BE IMPLEMENT
 }

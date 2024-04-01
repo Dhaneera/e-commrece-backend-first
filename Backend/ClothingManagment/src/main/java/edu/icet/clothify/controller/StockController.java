@@ -42,6 +42,11 @@ public class StockController {
         return stockService.deleteStock(id);
     }
 
+    @GetMapping("get/stock/{id}")
+    public StockDto getStockById(@PathVariable long id){
+        return stockService.getStockById(id);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String,String> error(MethodArgumentNotValidException exception){

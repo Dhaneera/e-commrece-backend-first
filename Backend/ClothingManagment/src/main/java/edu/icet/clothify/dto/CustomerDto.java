@@ -36,6 +36,6 @@ public class CustomerDto {
     private String phone;
     private List<Long> orderIds;
     private List<Long> billingInfoIds;
-     private List<OrdersDto> orders;
-     private List<BillingInfoDto> billingInfo;
+    private List<OrdersDto> orders;
+    private List<BillingInfoDto> billingInfo;
 }

@@ -2,9 +2,12 @@ package edu.icet.clothify.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
+import edu.icet.clothify.dto.ProductDto;
 import edu.icet.clothify.dto.StockDto;
+import edu.icet.clothify.entity.Product;
 import edu.icet.clothify.entity.Stock;
 import edu.icet.clothify.repository.StockRepository;
+import edu.icet.clothify.service.ProductService;
 import edu.icet.clothify.service.StockService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,8 @@ import java.util.Optional;
 
     @Autowired
     StockRepository stockRepository;
+
+    ProductService productService;
 
     @Override
     public Boolean addStock(StockDto stockDto) {
@@ -72,7 +77,22 @@ import java.util.Optional;
             return Collections.emptyList();
         }
     }
-    private StockDto convertStockToDTO(Stock stock) {
+
+    @Override
+    public StockDto getStockById(long id) {
+        Optional<Stock> byId = stockRepository.findById(id);
+        if (byId.isPresent()){
+            Stock stock = byId.get();
+            Long  productId = stock.getProduct().getId();
+            ProductDto productDto = productService.getProductById(productId);
+            StockDto stockDto = convertStockToDTO(stock);
+            stockDto.setProduct(Product.builder().id(productDto.getId()).name(productDto.getName()).build());
+            return stockDto;
+        }
+        return null;
+    }
+
+    private StockDto    convertStockToDTO(Stock stock) {
         // Implement logic to map Stock entity fields to StockDTO object
         StockDto stockDTO = new StockDto();
         stockDTO.setId(stock.getId());

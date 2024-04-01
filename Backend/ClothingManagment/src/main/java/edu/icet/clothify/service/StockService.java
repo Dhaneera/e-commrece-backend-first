@@ -14,4 +14,5 @@ public interface StockService {
 
     List<StockDto> listStock(Long id);
 
+    StockDto getStockById(long id);
 }

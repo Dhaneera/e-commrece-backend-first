@@ -35,6 +35,16 @@ public class CartController {
     public Cart updateCart(@PathVariable Long id, @RequestBody CartDto cartDto) {
         return cartService.upadateCart(id,cartDto);
     }
+    @PutMapping("/delete/{id}")
+    public Boolean updateStatus(@PathVariable long id){
+        return cartService.updateStatus(id);
+    }
+
+    @GetMapping("/get/{id}")
+    public CartDto getCartById(@PathVariable long id){
+        return cartService.getCartById(id);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String,String> error(MethodArgumentNotValidException exception){

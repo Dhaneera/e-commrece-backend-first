@@ -12,4 +12,10 @@ public interface CartService {
     public Cart upadateCart(Long id, CartDto cart);
     List<CartDto> getAllCartDetails();
 
+    boolean updateStatus(long id);
+
+    CartDto getCartById(long id);
+
+
+
 }

@@ -46,6 +46,13 @@ public class ProductController {
         return productService.getProductByCategory(category);
     }
 
+    @GetMapping("/get/name/{name}")
+    public ProductDto getProductByName(@PathVariable String name){
+        return productService.getProductByName(name);
+    }
+
+
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String,String> error(MethodArgumentNotValidException exception){

@@ -23,6 +23,6 @@ public class CartDto {
     @NotBlank(message = "Quantity  is can't be null")
     private int qty;
     private Double productTot;
-
+    private boolean isCompleted;
 
 }

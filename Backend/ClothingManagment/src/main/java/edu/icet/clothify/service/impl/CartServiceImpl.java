@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.CartDto;
 import edu.icet.clothify.entity.Cart;
+import edu.icet.clothify.entity.Stock;
 import edu.icet.clothify.repository.CartRepository;
 import edu.icet.clothify.service.CartService;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -67,6 +69,33 @@ public class CartServiceImpl implements CartService {
             cartDtos.add(cartDto);
         }
         return cartDtos;
+    }
+
+    @Override
+    public boolean updateStatus(long id) {
+        Optional<Cart> byId = cartRepository.findById(id);
+        if (byId.isPresent()){
+         Cart cart =  byId.get();
+            cartRepository.deleteById(id);
+            cart.setCompleted(true);
+            return true;
+
+        }
+        return false;
+    }
+
+    @Override
+    public CartDto getCartById(long id) {
+        Optional<Cart> byId = cartRepository.findById(id);
+        if (byId.isPresent()){
+            Cart cart=byId.get();
+            CartDto cartDto=mapper.convertValue(cart,CartDto.class);
+            cartDto.setStockId(Stock.builder().id(cart.getId()).build());
+            cartDto.setStockId(cart.getStockId());
+            return cartDto;
+
+        }
+        return null;
     }
 
 

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 @Repository
 @Service
 public interface ProductRepository extends CrudRepository<Product,Long> {
+    Product getByName(String name);
 }
