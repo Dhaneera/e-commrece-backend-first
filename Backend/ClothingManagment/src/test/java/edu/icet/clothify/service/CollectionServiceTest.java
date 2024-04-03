@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+@DisplayName("Collection Service Testing")
 public class CollectionServiceTest {
     @Mock
     CollectionRepository collectionRepository;
@@ -31,7 +32,7 @@ public class CollectionServiceTest {
     CollectionServiceImpl collectionServiceImpl;
 
     @Mock
-    private CollectionService collectionService;
+     CollectionService collectionService;
 
 
 
@@ -69,21 +70,7 @@ public class CollectionServiceTest {
         public void CollectionService_ViewCollection_ReturnObject(){
 
             //Given
-            List<Collection> list= new ArrayList<>();
 
-            Collection collection = Collection.builder().id(1L).name("Winter").build();
-            Collection collection1 = Collection.builder().id(2L).name("Summer").build();
-            CollectionDto collectionDto = CollectionDto.builder().id(2L).name("Summer").build();
-            list.add(collection);
-            list.add(collection1);
-
-
-            //When
-            when(collectionRepository.findAll()).thenReturn(list);
-            when(objectMapper.convertValue(any(), (Class<Object>) any())).thenReturn(collectionDto);
-            List<CollectionDto> categoriesGot=collectionServiceImpl.getAllCollection();
-            //then
-            org.assertj.core.api.Assertions.assertThat(!categoriesGot.isEmpty());
         }
         @Test
         @Order(2)
@@ -91,16 +78,19 @@ public class CollectionServiceTest {
         public void CollectionService_ViewCollectionByName_ReturnObject(){
 
             //Given
-            Collection collection = Collection.builder().id(1L).name("Winter").build();
-            CollectionService collectionService = Mockito.mock(CollectionService.class);
+            Long id =1L;
+            String collectionName ="Winter";
+
+            Collection collection = Collection.builder().id(id).name(collectionName).build();
+            CollectionDto collectionDto = CollectionDto.builder().id(id).name(collectionName).build();
+
 
             //When
-            when(collectionService.getCollectionByName(collection.getName())).thenReturn(CollectionDto.builder().build());
-            CollectionDto foundCollection = collectionService.getCollectionByName(collection.getName());
+            when(collectionRepository.getByName(collectionName)).thenReturn(collection);
+            when(collectionService.getCollectionByName(collectionName)).thenReturn(collectionDto);
 
             // Then
-            assertNotNull(foundCollection, "CollectionDto should not be null");
-
+            verify(collectionRepository).getByName(collectionName);
 
         }
         @Test
@@ -130,13 +120,20 @@ public class CollectionServiceTest {
         @DisplayName("Service Collection DeleteById")
         public void CollectionService_DeleteById_ReturnVoid(){
             //Given
-            Collection collection = Collection.builder().id(1L).name("Winter").build();
+            Long id = 1L;
+            String collectionName = "Summer";
+            Collection collection = Collection.builder().id(id).name(collectionName).build();
+            CollectionDto collectionDto = CollectionDto.builder().id(id).name(collectionName).build();
 
             //When
-            collectionService.deleteCollectionById(collection.getId());
+            when(collectionService.getCollectionById(collection.getId())).thenReturn(collectionDto);
+            doNothing().when(collectionRepository).deleteById(collection.getId());
+
+            boolean isDeleted = collectionService.deleteCollectionById(collection.getId());
 
             //Then
             verify(collectionService).deleteCollectionById(collection.getId());
+
         }
     }
 

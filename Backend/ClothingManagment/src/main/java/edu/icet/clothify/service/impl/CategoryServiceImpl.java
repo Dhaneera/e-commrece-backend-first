@@ -25,10 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean saveCategory(CategoryDto categoryDto) {
         Category category=objectMapper.convertValue(categoryDto, Category.class);
         Category savedCategory =categoryRepository.save(category);
-        if (savedCategory.getId()!=null){
-            return true;
-        }
-        return false;
+        return savedCategory.getId() != null;
     }
 
     @Override

@@ -3,6 +3,7 @@ package edu.icet.clothify.service;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.dto.CategoryDto;
+import edu.icet.clothify.dto.CustomerDto;
 import edu.icet.clothify.entity.Category;
 import edu.icet.clothify.repository.CategoryRepository;
 import edu.icet.clothify.service.impl.CategoryServiceImpl;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @DisplayName("Category Service Testing")
 public class CategoryServiceTest {
@@ -84,17 +85,58 @@ public class CategoryServiceTest {
         @DisplayName("Category GetByName Service")
         public void CategoryService_ViewCategoryByName_ReturnObject(){
             //Given
-            Category category =  Category.builder().id(1L).name("Mens").build();
-            CategoryService categoryService = Mockito.mock(CategoryService.class);
+            String categoryName = "Mens";
+            Long id =1L;
+            Category category = Category.builder().id(id).name(categoryName).build();
+            CategoryDto categoryDto = CategoryDto.builder().id(id).name(categoryName).build();
 
 
+            when(categoryRepository.getByName(categoryName)).thenReturn(category);
             //When
-            when(categoryService.getCategoryByName(category.getName())).thenReturn(CategoryDto.builder().build());
-            CategoryDto categoryDto = categoryService.getCategoryByName(category.getName());
+            when(categoryService.getCategoryByName(categoryName)).thenReturn(categoryDto);
+
+
 
             //Then
-            assertNotNull(categoryDto, "category Dto should not be null ");
+           verify(categoryRepository).getByName(categoryName);
+
         }
+        @Test
+        @Order(3)
+        @DisplayName("Service Get Category by Name - Category Not Found")
+        public void CategoryService_GetCategoryByName_CategoryNotFound() {
+            // Given
+            String nonExistentName = "Mens";
+            // Mock repository to return null (no customer found)
+            Mockito.when(categoryRepository.getByName(nonExistentName)).thenReturn(null);
+
+            // When
+            CategoryDto categoryDto = categoryService.getCategoryByName(nonExistentName);
+
+            // Then
+            // Verify repository call
+            verify(categoryRepository).getByName(nonExistentName);
+            // Assert null result
+            assertNull(categoryDto);
+        }
+        @Test
+        @Order(4)
+        @DisplayName("Service Get Category by Name - Exception Handled")
+        public void CategoryService_GetCategoryByName_HandlesException() {
+            // Given
+            String nameCausingException = "Error";
+            // Mock repository to throw an exception
+            Mockito.when(categoryRepository.getByName(nameCausingException)).thenThrow(new RuntimeException("Unexpected error"));
+
+            // When
+            CategoryDto categoryDto = categoryService.getCategoryByName(nameCausingException);
+
+            // Then
+            // Verify repository call
+            verify(categoryRepository).getByName(nameCausingException);
+
+        }
+
 
 
     }
@@ -104,10 +146,54 @@ public class CategoryServiceTest {
     class CategoryServiceDelete{
         @Test
         @Order(1)
-        @DisplayName("Category DeleteById Service")
-        public void CategoryService_DeleteCategoryById_ReturnVoid(){
+        @DisplayName("Category DeleteByName Service")
+        public void CategoryService_DeleteCategoryByName_ReturnVoid(){
+            // Given
+            String categoryName = "Mens";
+            Long id =1L;
+            Category category = Category.builder().id(id).name(categoryName).build();
+            CategoryDto categoryDto = CategoryDto.builder().id(1L).name(categoryName).build();
 
+
+            // When
+
+            when(categoryService.getCategoryByName(categoryName)).thenReturn(categoryDto);
+            doNothing().when(categoryRepository).deleteById(category.getId());
+
+            boolean isDelete = categoryService.deleteCategoryByName(categoryName);
+
+            // Then
+            verify(categoryRepository).deleteById(category.getId());
+            assertTrue(isDelete);
         }
+
+    }
+    @Nested
+    @Order(4)
+    @DisplayName("Error handing Service")
+    class ThrowExceptionService{
+
+        @Test
+        @Order(1)
+        @DisplayName("Category GetByName Service - Error Handling")
+        public void CategoryService_GetCategoryByName_ReturnEmptyDto(){
+            //Given
+            String categoryName = null;
+            Long id = null;
+            Category category = Category.builder().id(id).name(categoryName).build();
+            CategoryDto categoryDto = CategoryDto.builder().id(id).name(categoryName).build();
+
+            //When
+            when(categoryRepository.getByName(categoryName)).thenReturn(category);
+            when(categoryService.getCategoryByName(categoryName)).thenReturn(categoryDto);
+
+            //Then
+            verify(categoryRepository).getByName(categoryName);
+            assertNotNull(categoryDto);
+        }
+
+
+
     }
 
 

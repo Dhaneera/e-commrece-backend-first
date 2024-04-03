@@ -35,9 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw  new ResourceNotFoundException("Customer not found in this id: "+id);
         }
 
-        Customer existingCustomer = customerRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Customer not found with this id: " + id));
-
+        Customer existingCustomer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found with this id: " + id));
         BeanUtils.copyProperties(customerDto, existingCustomer, "id");
 
         return customerRepository.save(existingCustomer);
@@ -56,13 +54,5 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-//    @Override
-//    public CustomerDto getCustomerById(Long id) {
-//        Customer customer =customerRepository.findById(id).get();
-//        if (customer.getId()!=null){
-//            CustomerDto customerDto = mapper.convertValue(customer, CustomerDto.class);
-//            customerDto.setOrders(Orders.builder().id(customer.getOrders()).build());
-//        }
-//    }
 
 }

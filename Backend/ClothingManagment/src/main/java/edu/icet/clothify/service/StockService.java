@@ -12,7 +12,6 @@ public interface StockService {
     public Stock updateStock(Long id, StockDto stockDto);
      Boolean deleteStock(Long id);
 
-    List<StockDto> listStock(Long id);
 
     StockDto getStockById(long id);
 }

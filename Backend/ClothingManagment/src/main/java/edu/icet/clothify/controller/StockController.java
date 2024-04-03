@@ -28,11 +28,6 @@ public class StockController {
         return stockService.addStock(stock);
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<List<StockDto>> listStock(@PathVariable Long id) {
-        List<StockDto> stockDTOList = stockService.listStock(id);
-        return ResponseEntity.ok(stockDTOList);
-    }
     @PutMapping ("/update/{id}")
     public Stock updateStock(@PathVariable Long id, @RequestBody StockDto stockDto) {
         return stockService.updateStock(id, stockDto);
@@ -42,7 +37,7 @@ public class StockController {
         return stockService.deleteStock(id);
     }
 
-    @GetMapping("get/stock/{id}")
+    @GetMapping("get/{id}")
     public StockDto getStockById(@PathVariable long id){
         return stockService.getStockById(id);
     }

@@ -65,7 +65,7 @@ public class CollectionServiceImpl implements CollectionService {
             Collection collection=collectionRepository.getByName(name);
             return objectMapper.convertValue(collection,CollectionDto.class);
         }catch (Exception exception){
-            return null;
+            return CollectionDto.builder().build();
         }
     }
 }
