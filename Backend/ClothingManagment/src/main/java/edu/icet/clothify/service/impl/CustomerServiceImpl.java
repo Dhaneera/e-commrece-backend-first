@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.CustomerDto;
 import edu.icet.clothify.entity.Customer;
-import edu.icet.clothify.entity.Orders;
 import edu.icet.clothify.repository.CustomerRepository;
 import edu.icet.clothify.service.CustomerService;
 import org.springframework.beans.BeanUtils;

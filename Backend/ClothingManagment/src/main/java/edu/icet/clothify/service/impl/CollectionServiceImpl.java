@@ -60,7 +60,7 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
-    public CollectionDto getCategoryByName(String name) {
+    public CollectionDto getCollectionByName(String name) {
         try {
             Collection collection=collectionRepository.getByName(name);
             return objectMapper.convertValue(collection,CollectionDto.class);

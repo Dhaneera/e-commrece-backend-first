@@ -22,7 +22,7 @@ public class SubCategoryRepositoryTest {
     @Nested
     @Order(1)
     @DisplayName("Save repository")
-    class SaveSubCategory{
+    class SubCategoryRepositorySave{
 
         @Test
         @Order(1)
@@ -41,7 +41,7 @@ public class SubCategoryRepositoryTest {
     @Nested
     @Order(2)
     @DisplayName("Update repository")
-    class UpdateSubCategory {
+    class SubCategoryRepositoryUpdate {
         @Test
         @Order(1)
         @DisplayName("Update SubCategory Repository")
@@ -59,7 +59,7 @@ public class SubCategoryRepositoryTest {
     @Nested
     @Order(3)
     @DisplayName("Delete repository")
-   class DeleteSubCategory {
+   class SubCategoryRepositoryDelete {
         @Test
         @Order(1)
         @DisplayName("Delete SubCategory Repository")
@@ -81,7 +81,7 @@ public class SubCategoryRepositoryTest {
     @Nested
     @Order(4)
     @DisplayName(" View Repository")
-    class GetByNameSubCategory{
+    class SubCategoryRepositoryView{
 
         @Test
         @Order(1)

@@ -12,7 +12,9 @@ public interface CollectionService {
 
     boolean deleteCollectionById(Long id);
 
-    CollectionDto getCategoryByName(String name);
+    CollectionDto getCollectionByName(String name);
 
     boolean saveCollection(CollectionDto collectionDto);
+
+
 }

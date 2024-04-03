@@ -28,12 +28,12 @@ public class CartRepositoryTest {
     @Nested
     @Order(1)
     @DisplayName("Save repository")
-    class SaveStock {
+    class Cart_Repository_Save {
 
         @Test
         @Order(1)
         @DisplayName("Save cart Repository")
-        public void CartRepository_SaveStock_ReturnStockObject() {
+        public void CartRepository_SaveCart_ReturnStockObject() {
             //Given
             Stock stock = Stock.builder().id(null).build();
             Stock save = stockRepository.save(stock);
@@ -51,12 +51,12 @@ public class CartRepositoryTest {
     @Nested
     @Order(2)
     @DisplayName("Update repository")
-    class UpdateStock {
+    class CartRepositoryUpdate {
 
         @Test
         @Order(1)
         @DisplayName("Update cart Repository")
-        public void CartRepository_UpdateStock_ReturnStockObject() {
+        public void CartRepository_UpdateCart_ReturnStockObject() {
             //Given
             Cart cart = Cart.builder().id(null).productTot(200.00).qty(20).stockId(null).build();
 
@@ -73,12 +73,12 @@ public class CartRepositoryTest {
     @Nested
     @Order(3)
     @DisplayName("Delete Repository")
-    class DeleteStock {
+    class CartRepositoryDelete {
 
         @Test
         @Order(1)
         @DisplayName("Delete Cart Repository")
-        public void StockRepository_DeleteStock_ReturnVoid() throws StockServiceException {
+        public void CartRepository_DeleteCart_ReturnVoid() throws StockServiceException {
             //Given
             Cart cart = Cart.builder().id(null).productTot(200.00).qty(20).stockId(null).build();
 
@@ -98,12 +98,12 @@ public class CartRepositoryTest {
     @Nested
     @Order(4)
     @DisplayName("View Repository")
-    class ViewStock {
+    class StockRepositoryView {
 
         @Test
         @Order(1)
-        @DisplayName("View Cart")
-        public void StockRepository_GetById_ReturnVoid() {
+        @DisplayName("View Cart Repository")
+        public void CartRepository_GetById_ReturnVoid() {
             //Given
             Cart cart = Cart.builder().id(null).productTot(200.00).qty(20).stockId(null).build();
             Cart cart1 = Cart.builder().id(null).productTot(300.00).qty(10).stockId(null).build();

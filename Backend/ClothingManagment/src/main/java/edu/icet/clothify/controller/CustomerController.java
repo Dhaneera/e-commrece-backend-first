@@ -30,10 +30,14 @@ public class CustomerController {
     public CustomerDto getCustomerByName(@PathVariable String name){
         return customerService.getCustomerByName(name);
     }
+
     @PutMapping("/update/{id}")
     public Customer updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDto) {
         return customerService.updateCustomer(id, customerDto);
     }
+
+
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

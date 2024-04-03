@@ -26,7 +26,7 @@ public class BillingInfoRepositoryTest {
     @Nested
     @Order(1)
     @DisplayName("Save repository")
-    class SaveStock {
+    class BillInformationRepositorySave {
 
         @Test
         @Order(1)
@@ -52,12 +52,12 @@ public class BillingInfoRepositoryTest {
     @Nested
     @Order(2)
     @DisplayName("Update repository")
-    class UpdateStock{
+    class BillInformationRepositoryUpdate{
 
         @Test
         @Order(1)
         @DisplayName("Update BillingInfo Repository")
-        public void BillingInfoRepository_UpdateStock_ReturnStockObject(){
+        public void BillingInfoRepository_UpdateBillingInfo_ReturnStockObject(){
             //Given
             BillingInfo billingInfo = BillingInfo.builder().id(null).address("Mount-Lavinia").phone("0777007987").customer(null).orders(null).build();
 

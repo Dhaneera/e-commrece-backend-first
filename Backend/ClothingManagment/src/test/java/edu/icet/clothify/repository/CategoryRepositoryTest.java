@@ -20,7 +20,7 @@ public class CategoryRepositoryTest {
     @Nested
     @Order(1)
     @DisplayName("Save Repository")
-    class SaveCategory{
+    class CategoryRepositorySave{
         @Test
         @Order(1)
         @DisplayName("Save Category Repository")
@@ -38,7 +38,7 @@ public class CategoryRepositoryTest {
     @Nested
     @Order(2)
     @DisplayName("View Repository")
-    class GetCategory {
+    class CategoryRepositoryView {
         @Test
         @Order(1)
         @DisplayName("Get Category By Name Repository")
@@ -80,7 +80,7 @@ public class CategoryRepositoryTest {
     @Nested
     @Order(3)
     @DisplayName("Delete Repository")
-    class DeleteCategory{
+    class CategoryRepositoryDelete{
 
         @Test
         @Order(1)

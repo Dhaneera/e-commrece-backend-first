@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
             return false;
         }
         SubCategoryDto subCategoryDto =subCategoryService.getCategoryByName(productDto.getSubCategory().getName());
-        CollectionDto collection=collectionService.getCategoryByName(productDto.getCollection().getName());
+        CollectionDto collection=collectionService.getCollectionByName(productDto.getCollection().getName());
         Long id=category.getId();
 
         Product product = Product.builder().

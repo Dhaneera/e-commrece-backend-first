@@ -22,7 +22,7 @@ public class CollectionRepositoryTest {
     @Nested
     @Order(1)
     @DisplayName("Save Repository")
-    class SaveCollection{
+    class CollectionRepositorySave{
         @Test
         @Order(1)
         @DisplayName("Save Collection Repository")
@@ -39,7 +39,7 @@ public class CollectionRepositoryTest {
     @Nested
     @Order(2)
     @DisplayName("Delete Repository")
-    class DeleteCollection{
+    class CollectionRepositoryDelete{
 
         @Test
         @Order(1)
@@ -59,8 +59,8 @@ public class CollectionRepositoryTest {
     }
     @Nested
     @Order(3)
-    @DisplayName("View Collection")
-    class GetCollection{
+    @DisplayName("View Repository")
+    class CollectionRepositoryView{
         @Test
         @Order(1)
         @DisplayName("Get Collection  Repository")

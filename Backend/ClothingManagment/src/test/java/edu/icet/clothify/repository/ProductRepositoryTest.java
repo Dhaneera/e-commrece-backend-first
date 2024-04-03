@@ -18,7 +18,7 @@ public class ProductRepositoryTest{
     @Nested
     @Order(1)
     @DisplayName("Save Repository")
-    class SaveProduct{
+    class ProductRepositorySave{
         @Test
         @Order(1)
         @DisplayName("Save Product Repository")

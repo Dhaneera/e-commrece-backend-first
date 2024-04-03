@@ -27,7 +27,7 @@ public class StockRepositoryTest {
     @Nested
     @Order(1)
     @DisplayName("Save repository")
-    class SaveStock {
+    class StockRepositorySave {
 
         @Test
         @Order(1)
@@ -49,7 +49,7 @@ public class StockRepositoryTest {
     @Nested
     @Order(2)
     @DisplayName("Update repository")
-    class UpdateStock{
+    class StockRepositoryUpdate{
 
         @Test
         @Order(1)
@@ -75,7 +75,7 @@ public class StockRepositoryTest {
     @Nested
     @Order(3)
     @DisplayName("Delete Repository")
-    class DeleteStock{
+    class StockRepositoryDelete{
 
         @Test
         @Order(1)
@@ -97,11 +97,11 @@ public class StockRepositoryTest {
         @Nested
         @Order(4)
         @DisplayName("View Repository")
-        class ViewStock{
+        class StockRepositoryView{
 
             @Test
             @Order(1)
-            @DisplayName("View Stock")
+            @DisplayName("View StockById Repository")
             public  void  StockRepository_GetById_ReturnVoid(){
                 //Given
                 Stock stock = Stock.builder().id(null).price(2000.00).qty(20).color("Red").size("L").product(null).build();

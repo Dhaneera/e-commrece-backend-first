@@ -38,12 +38,11 @@ public class CollectionController {
 
     @DeleteMapping("/delete/{id}")
     public boolean deleteCollectionById(@PathVariable Long id){
-        boolean isDeleted= collectionService.deleteCollectionById(id);
-        return isDeleted;
+        return collectionService.deleteCollectionById(id);
     }
     @GetMapping("/get/name/{name}")
     public CollectionDto getCollectionByName(@PathVariable String name){
-        return collectionService.getCategoryByName(name);
+        return collectionService.getCollectionByName(name);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

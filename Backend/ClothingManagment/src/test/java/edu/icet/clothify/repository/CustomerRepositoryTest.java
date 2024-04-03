@@ -27,7 +27,7 @@ public class CustomerRepositoryTest {
     @Nested
     @Order(1)
     @DisplayName("Save repository")
-    class SaveCustomer {
+    class CustomerRepositorySave {
 
         @Test
         @Order(1)
@@ -49,7 +49,7 @@ public class CustomerRepositoryTest {
     @Nested
     @Order(2)
     @DisplayName("Update repository")
-    class UpdateCustomer {
+    class CustomerRepositoryUpdate {
 
         @Test
         @Order(1)
@@ -75,9 +75,11 @@ public class CustomerRepositoryTest {
     @Nested
     @Order(3)
     @DisplayName("Get Repository")
-    class ViewCustomer {
+    class CustomerRepositoryView {
 
         @Test
+        @Order(1)
+        @DisplayName("Get CustomerByName Repository")
         public void CategoryRepository_GetCategoryByName_ReturnCategory(){
             //Given
             Customer customer = Customer.builder().id(null).name("shehan").phone("0765462379").mail("wickramasuriya@gmail.com").build();
