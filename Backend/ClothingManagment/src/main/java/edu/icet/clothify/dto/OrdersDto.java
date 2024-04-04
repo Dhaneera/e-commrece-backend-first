@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class OrdersDto {
-    @NotNull
     @Valid
     private Long id;
     private String customerId ;
@@ -38,7 +37,7 @@ public class OrdersDto {
     @NotBlank(message = "zipcode is null")
     private String zipCode;
     @NotBlank(message = "Total is null")
-    private Double Tot;
+    private Double tot;
     @NotBlank(message = "city is null")
     @Size(min = 5,message = "contact missing digits")
     private String city;

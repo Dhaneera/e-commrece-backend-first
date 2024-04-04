@@ -12,11 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.hibernate.validator.internal.util.Contracts.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -74,25 +71,57 @@ public class CollectionServiceTest {
         }
         @Test
         @Order(2)
-        @DisplayName("Service Collection GetByName")
-        public void CollectionService_ViewCollectionByName_ReturnObject(){
-
+        @DisplayName("Category GetByName Service")
+        public void CategoryService_ViewCategoryByName_ReturnObject(){
             //Given
-            Long id =1L;
-            String collectionName ="Winter";
-
-            Collection collection = Collection.builder().id(id).name(collectionName).build();
-            CollectionDto collectionDto = CollectionDto.builder().id(id).name(collectionName).build();
-
-
+            Collection collection= Collection.builder().id(1L).name("Spring").build();
+            CollectionDto coll=CollectionDto.builder().id(1L).name("Spring").build();
+            when(collectionRepository.getByName(any())).thenReturn(collection);
+            when(objectMapper.convertValue((Object) any(), (Class<Object>) any())).thenReturn(coll);
+            CollectionDto collectionDto=collectionService.getCollectionByName("Spring");
+            Assertions.assertEquals(collectionDto.getName(),coll.getName());
             //When
-            when(collectionRepository.getByName(collectionName)).thenReturn(collection);
-            when(collectionService.getCollectionByName(collectionName)).thenReturn(collectionDto);
 
-            // Then
-            verify(collectionRepository).getByName(collectionName);
+            //Then
 
         }
+//        @Test
+//        @Order(3)
+//        @DisplayName("Service Get Category by Name - Category Not Found")
+//        public void CategoryService_GetCategoryByName_CategoryNotFound() {
+//            // Given
+//            String nonExistentName = "summer";
+//            // Mock repository to return null (no customer found)
+//            Mockito.when(collectionRepository.getByName(nonExistentName)).thenReturn(null);
+//
+//            // When
+//            CollectionDto collectionDto = collectionService.getCollectionByName(nonExistentName);
+//
+//            // Then
+//            // Verify repository call
+//            verify(collectionRepository).getByName(nonExistentName);
+//            // Assert null result
+//            assertNull(collectionDto);
+//        }
+//        @Test
+//        @Order(4)
+//        @DisplayName("Service Get Collection by Name - Exception Handled")
+//        public void CollectionService_GetCollectionByName_HandlesException() {
+//            // Given
+//            String nameCausingException = "Error";
+//            // Mock repository to throw an exception
+//            Mockito.when(collectionRepository.getByName(nameCausingException)).thenThrow(new RuntimeException("Unexpected error"));
+//
+//            // When
+//            CollectionDto collectionDto = collectionService.getCollectionByName(nameCausingException);
+//
+//            // Then
+//            // Verify repository call
+//            verify(collectionRepository).getByName(nameCausingException);
+//
+//        }
+
+
         @Test
         @Order(3)
         @DisplayName("Service Collection GeById")

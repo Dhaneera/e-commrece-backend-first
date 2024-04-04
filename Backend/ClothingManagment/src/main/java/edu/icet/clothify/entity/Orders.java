@@ -42,7 +42,7 @@ public class Orders {
     private String zipCode;
 
     @Column(name = "Order Total" , nullable = false)
-    private Double Tot;
+    private Double tot;
 
     @Column(name = "City" , nullable = false)
     private String city;

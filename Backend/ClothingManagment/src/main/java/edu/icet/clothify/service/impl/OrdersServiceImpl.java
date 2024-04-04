@@ -52,8 +52,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public boolean addOrder(OrdersDto orderDto) {
-        return true;
+    public Boolean addOrder(OrdersDto orderDto) {
+
+        Orders orders = mapper.convertValue(orderDto, Orders.class);
+        Orders saved = ordersRepository.save(orders);
+        return saved.getId()!=null ;
     }
 
 }

@@ -3,7 +3,6 @@ package edu.icet.clothify.service;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.dto.CategoryDto;
-import edu.icet.clothify.dto.CustomerDto;
 import edu.icet.clothify.entity.Category;
 import edu.icet.clothify.repository.CategoryRepository;
 import edu.icet.clothify.service.impl.CategoryServiceImpl;

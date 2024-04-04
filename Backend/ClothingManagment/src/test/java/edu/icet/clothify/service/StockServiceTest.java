@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.CategoryDto;
 import edu.icet.clothify.dto.StockDto;
-import edu.icet.clothify.dto.StockDto;
 import edu.icet.clothify.entity.Category;
-import edu.icet.clothify.entity.Product;
 import edu.icet.clothify.entity.Stock;
 import edu.icet.clothify.repository.StockRepository;
 import edu.icet.clothify.service.impl.StockServiceImpl;
@@ -17,8 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -130,6 +126,7 @@ public class StockServiceTest {
     @DisplayName("Delete Service")
     class DeleteStockService{
 
+
         @Test
         @Order(1)
         @DisplayName("Service Delete Stock - Successful Deletion")
@@ -169,17 +166,95 @@ public class StockServiceTest {
             verify(stockRepository).existsById(nonExistentStockId);
 
         }
+
     }
     @Nested
     @Order(4)
     @DisplayName("View Service")
     class ViewStockService{
+        @Test
+        @Order(1)
+        @DisplayName("View StockById Service")
+        public void  StockService_GetStockById_ReturnObject(){
+
+            //Given
+            Long id =1L;
+            Stock stock = Stock.builder().id(id).build();
+            StockDto stockDto = StockDto.builder().id(id).build();
+
+            //When
+            when(stockRepository.findById(id)).thenReturn(Optional.ofNullable(stock));
+            when(stockRepository.existsById(id)).thenReturn(true);
+            when(stockService.getStockById(id)).thenReturn(stockDto);
+
+            //Then
+            verify(stockRepository).findById(id);
+
+
+        }
+        @Test
+        @Order(2)
+        @DisplayName("Stock GetById Service - Valid ID, Stock Found")
+        public void StockService_GetById_ValidId_StockFound() {
+            // Given
+            Long existingStockId = 1L; // Replace with an ID that exists in your test data
+            Stock existingStock = Stock.builder().id(existingStockId).build(); // Set necessary fields
+            StockDto expectedStockDto = StockDto.builder().id(existingStockId).build(); // Set expected data
+
+            // When
+            when(stockRepository.findById(existingStockId)).thenReturn(Optional.of(existingStock));
+
+
+             when(stockService.getStockById(existingStockId)).thenReturn(expectedStockDto);
+
+            // Then
+            assertEquals(expectedStockDto.getId(), expectedStockDto.getId());
+
+        }
+        @Test
+        @Order(3)
+        @DisplayName("Stock GetById Service - NotValid ID, Stock NotFound")
+        public void StockService_GetById_NotValidId_StockNotFound(){
+
+            // Given
+            Long nonExistingId = 10L; // Replace with an ID that exists in your test data
+            Stock stock = Stock.builder().id(nonExistingId).build();
+            StockDto stockDto = StockDto.builder().id(nonExistingId).build();
+
+            // When
+
+            when(stockRepository.findById(nonExistingId)).thenReturn(Optional.ofNullable(stock));
+            when(stockService.getStockById(nonExistingId)).thenReturn(stockDto);
 
 
 
 
+            // Then
+            verify(stockRepository).findById(nonExistingId);
+
+        }
 
 
+    }
 
+    @Nested
+    @Order(5)
+    @DisplayName("Error handing Service")
+    class ThrowExceptionService {
+
+        @Test
+        @Order(1)
+        @DisplayName("StockService_getStockById - Handle Null ID")
+        public void testStockService_GetStockById_NullId()  {
+            // Given
+            Long nullId = null;
+
+            // Mock dependencies (if applicable)
+            StockRepository mockStockRepository = mock(StockRepository.class);
+
+            // When and Then (using assertThrows)
+            assertThrows(Exception.class, () -> stockService.getStockById(nullId));
+
+        }
     }
 }

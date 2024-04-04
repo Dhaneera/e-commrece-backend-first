@@ -15,10 +15,10 @@ import java.util.List;
 @Service
 public class CollectionServiceImpl implements CollectionService {
     @Autowired
-    CollectionRepository collectionRepository;
+    private CollectionRepository collectionRepository;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
     @Override
     public boolean saveCollection(CollectionDto collectionDto) {
         Collection collection=objectMapper.convertValue(collectionDto,Collection.class);
@@ -61,11 +61,8 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public CollectionDto getCollectionByName(String name) {
-        try {
             Collection collection=collectionRepository.getByName(name);
-            return objectMapper.convertValue(collection,CollectionDto.class);
-        }catch (Exception exception){
-            return CollectionDto.builder().build();
-        }
+            CollectionDto collectionDto=objectMapper.convertValue(collection,CollectionDto.class);
+            return collectionDto;
     }
 }

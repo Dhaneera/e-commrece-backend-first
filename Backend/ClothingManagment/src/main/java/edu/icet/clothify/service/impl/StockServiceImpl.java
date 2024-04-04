@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-    public class  StockServiceImpl implements StockService {
+        public class  StockServiceImpl implements StockService {
     @Autowired
     ObjectMapper mapper;
 
@@ -34,8 +34,6 @@ import java.util.Optional;
         return saved.getId() != null;
     }
 
-
-
     @Override
     public Stock updateStock(Long id, StockDto stockDto) {
         if (!stockRepository.existsById(id)) {
@@ -49,26 +47,15 @@ import java.util.Optional;
 
     @Override
     public Boolean deleteStock(Long id) {
-        if (!stockRepository.existsById(id)) {
+        if (stockRepository.existsById(id)) {stockRepository.deleteById(id);
+            return true;}
+        else {
             throw new ResourceNotFoundException("stock info not available for this id to delete: "+id);
-        } else {
-            stockRepository.deleteById(id);
-            return true;
         }
-
     }
-
 
     @Override
     public StockDto getStockById(long id) {
         Stock stock = stockRepository.findById(id).get();
-        if (stock.getId()==null){
-            return null;
-        }
-        return mapper.convertValue(stock,StockDto.class);
-    }
-
-
-
-
+        return stock.getId() != null ? mapper.convertValue(stock, StockDto.class) : null;}
 }

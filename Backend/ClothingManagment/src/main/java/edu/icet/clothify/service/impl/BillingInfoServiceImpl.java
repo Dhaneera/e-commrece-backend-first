@@ -20,6 +20,7 @@ public class BillingInfoServiceImpl implements BillingInfoService {
     @Autowired
     private final BillingInfoRepository billingInfoRepository;
 
+    @Autowired
     public BillingInfoServiceImpl(BillingInfoRepository billingInfoRepository) {
         this.billingInfoRepository = billingInfoRepository;
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.CartDto;
 import edu.icet.clothify.entity.Cart;
+import edu.icet.clothify.entity.Orders;
 import edu.icet.clothify.entity.Stock;
 import edu.icet.clothify.repository.CartRepository;
 import edu.icet.clothify.service.CartService;
@@ -23,21 +24,22 @@ public class CartServiceImpl implements CartService {
     ObjectMapper mapper;
 
      final CartRepository cartRepository;
+
+
      @Autowired
      public CartServiceImpl(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
     }
 
 
-//    @Override
-//    public Cart addCart(Cart cart) {
-//        return cartRepository.save(cart);
-//    }
 
 
     @Override
     public Boolean addCart(CartDto cartDto) {
-         Cart cart=mapper.convertValue(cartDto, Cart.class);
+//         Cart cart=mapper.convertValue(cartDto, Cart.class);
+        Cart cart = Cart.builder()
+                .qty(cartDto.getQty())
+                .completed(cartDto.isCompleted()).stockId(cartDto.getStockId()).productTot(cartDto.getProductTot()).id(cartDto.getId()).build();
         Cart saved = cartRepository.save(cart);
         return saved.getId() != null;
     }
