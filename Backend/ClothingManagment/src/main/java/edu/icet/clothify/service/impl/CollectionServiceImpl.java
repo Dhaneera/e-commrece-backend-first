@@ -29,8 +29,8 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public List<CollectionDto> getAllCollection() {
         Iterable<Collection> collections =collectionRepository.findAll();
-        List<CollectionDto> collectionDtoList= new ArrayList<>();
         Iterator<Collection> collectionIterator =collections.iterator();
+        List<CollectionDto> collectionDtoList= new ArrayList<>();
         while (collectionIterator.hasNext()){
             Collection collection=collectionIterator.next();
             CollectionDto collectionDto=objectMapper.convertValue(collection,CollectionDto.class);
@@ -62,7 +62,6 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public CollectionDto getCollectionByName(String name) {
             Collection collection=collectionRepository.getByName(name);
-            CollectionDto collectionDto=objectMapper.convertValue(collection,CollectionDto.class);
-            return collectionDto;
+        return objectMapper.convertValue(collection,CollectionDto.class);
     }
 }

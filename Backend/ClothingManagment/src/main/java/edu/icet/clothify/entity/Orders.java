@@ -26,25 +26,25 @@ public class Orders {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @Column(name = "Address" , nullable = false)
+    @Column(name = "Address")
     private String address;
 
-    @Column(name ="Contact" , nullable = false)
+    @Column(name ="Contact")
     private String phone;
 
-    @Column(name ="Tax" , nullable = false)
+    @Column(name ="Tax")
     private Double tax;
 
-    @Column(name ="Delivery Charge" , nullable = false)
+    @Column(name ="Delivery Charge")
     private Double charge;
 
-    @Column(name = "Land Code" , nullable = false)
+    @Column(name = "Land Code")
     private String zipCode;
 
-    @Column(name = "Order Total" , nullable = false)
+    @Column(name = "Order Total")
     private Double tot;
 
-    @Column(name = "City" , nullable = false)
+    @Column(name = "City")
     private String city;
 
     @OneToOne(mappedBy = "orders")

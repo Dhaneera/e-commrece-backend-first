@@ -2,6 +2,7 @@ package edu.icet.clothify.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
+import edu.icet.clothify.dto.StockDto;
 import edu.icet.clothify.dto.SubCategoryDto;
 import edu.icet.clothify.entity.SubCategory;
 import edu.icet.clothify.repository.SubCategoryRepository;
@@ -43,16 +44,8 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
     @Override
     public SubCategoryDto getSubCategoryById(Long id) {
-        try {
             SubCategory subCategory = subCategoryRepository.findById(id).get();
-            if (subCategory.getId() == null) {
-                return null;
-            }
-            return objectMapper.convertValue(subCategory, SubCategoryDto.class);
-        }catch (Exception exception){
-            return null;
-        }
-    }
+            return subCategory.getId()!=null ? objectMapper.convertValue(subCategory,SubCategoryDto.class):null;}
 
     @Override
     public boolean deleteSubCategoryById(Long id) {
@@ -63,16 +56,14 @@ public class SubCategoryServiceImpl implements SubCategoryService {
             throw new ResourceNotFoundException("SubCategory  not available for this id to delete: "+id);
 
         }
-
     }
 
     @Override
     public SubCategoryDto getCategoryByName(String name) {
-        try {
-            SubCategory subCategory=subCategoryRepository.getByName(name);
-            return objectMapper.convertValue(subCategory,SubCategoryDto.class);
-        }catch (Exception exception){
-            return null;
-        }
-    }
+        SubCategory subCategory=subCategoryRepository.getByName(name);
+        return subCategory.getId() != null ? objectMapper.convertValue(subCategory, SubCategoryDto.class) : null;}
+
+
 }
+
+

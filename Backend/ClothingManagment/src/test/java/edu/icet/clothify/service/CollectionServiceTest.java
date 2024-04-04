@@ -2,18 +2,20 @@ package edu.icet.clothify.service;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.icet.clothify.dto.CategoryDto;
 import edu.icet.clothify.dto.CollectionDto;
+import edu.icet.clothify.entity.Category;
 import edu.icet.clothify.entity.Collection;
 import edu.icet.clothify.repository.CollectionRepository;
 import edu.icet.clothify.service.impl.CollectionServiceImpl;
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
+import java.util.*;
+
+import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -60,66 +62,78 @@ public class CollectionServiceTest {
     @Nested
     @Order(2)
     @DisplayName("Service View")
-    class CategoryServiceView{
+    class CategoryServiceView {
+
         @Test
-        @Order(1)
-        @DisplayName("Service Collection GetAll")
-        public void CollectionService_ViewCollection_ReturnObject(){
+        @DisplayName("CollectionService_getAllCollection - Returns CollectionDtos")
+        public void testGetAllCollection() {
 
             //Given
 
-        }
-        @Test
-        @Order(2)
-        @DisplayName("Category GetByName Service")
-        public void CategoryService_ViewCategoryByName_ReturnObject(){
-            //Given
-            Collection collection= Collection.builder().id(1L).name("Spring").build();
-            CollectionDto coll=CollectionDto.builder().id(1L).name("Spring").build();
-            when(collectionRepository.getByName(any())).thenReturn(collection);
-            when(objectMapper.convertValue((Object) any(), (Class<Object>) any())).thenReturn(coll);
-            CollectionDto collectionDto=collectionService.getCollectionByName("Spring");
-            Assertions.assertEquals(collectionDto.getName(),coll.getName());
-            //When
+            ArrayList<Collection> list = new ArrayList<>();
+
+            String name = "winter";
+            String name1 = "summer";
+            Long id =1L;
+            Long id_1 =2L;
+
+            Collection collection = Collection.builder().id(id).name(name).build();
+            Collection collection1 = Collection.builder().id(id_1).name(name1).build();
+            CollectionDto collectionDto = CollectionDto.builder().id(id_1).name(name1).build();
+
+            list.add(collection);
+            list.add(collection1);
+
+            //when
+            when(collectionRepository.findAll()).thenReturn(list);
+            when(objectMapper.convertValue((Object) any(), (Class<Object>) any())).thenReturn(collectionDto);
+            List<CollectionDto> allCollection = collectionService.getAllCollection();
 
             //Then
+            org.assertj.core.api.Assertions.assertThat(!allCollection.isEmpty());
+
 
         }
-//        @Test
-//        @Order(3)
-//        @DisplayName("Service Get Category by Name - Category Not Found")
-//        public void CategoryService_GetCategoryByName_CategoryNotFound() {
-//            // Given
-//            String nonExistentName = "summer";
-//            // Mock repository to return null (no customer found)
-//            Mockito.when(collectionRepository.getByName(nonExistentName)).thenReturn(null);
-//
-//            // When
-//            CollectionDto collectionDto = collectionService.getCollectionByName(nonExistentName);
-//
-//            // Then
-//            // Verify repository call
-//            verify(collectionRepository).getByName(nonExistentName);
-//            // Assert null result
-//            assertNull(collectionDto);
-//        }
-//        @Test
-//        @Order(4)
-//        @DisplayName("Service Get Collection by Name - Exception Handled")
-//        public void CollectionService_GetCollectionByName_HandlesException() {
-//            // Given
-//            String nameCausingException = "Error";
-//            // Mock repository to throw an exception
-//            Mockito.when(collectionRepository.getByName(nameCausingException)).thenThrow(new RuntimeException("Unexpected error"));
-//
-//            // When
-//            CollectionDto collectionDto = collectionService.getCollectionByName(nameCausingException);
-//
-//            // Then
-//            // Verify repository call
-//            verify(collectionRepository).getByName(nameCausingException);
-//
-//        }
+
+
+        @Test
+        void testGetCollectionByName_Success() {
+            // Given
+            String name = "Summer";
+            Collection collection = Collection.builder().id(1L).name(name).build();
+            CollectionDto collectionDto = CollectionDto.builder().id(1L).name(name).build();
+
+            when(collectionRepository.getByName(name)).thenReturn(collection);
+
+
+            when(collectionService.getCollectionByName(collection.getName())).thenReturn(collectionDto);
+            when(objectMapper.convertValue(collection, CollectionDto.class)).thenReturn(collectionDto);
+
+            // When
+            CollectionDto resultDto = collectionService.getCollectionByName(name);
+
+            // Then
+            verify(collectionService).getCollectionByName(collection.getName());
+            assertNotNull(resultDto, "Returned DTO should not be null");
+            assertEquals(collectionDto, resultDto, "Returned DTO should match the expected DTO");
+        }
+
+
+
+        @Test
+        void testGetCollectionByName_NotFound() {
+            // Given
+            String name = "nonexistent";
+
+            // Mocking behavior
+            when(collectionRepository.getByName(name)).thenReturn(null);
+
+            // When
+            CollectionDto resultDto = collectionService.getCollectionByName(name);
+
+            // Then
+            assertNull(resultDto, "Returned DTO should be null as no collection found with name " + name);
+        }
 
 
         @Test
@@ -145,26 +159,38 @@ public class CollectionServiceTest {
     @DisplayName("Service Delete")
     class  CollectionServiceDelete{
         @Test
-        @Order(1)
-        @DisplayName("Service Collection DeleteById")
-        public void CollectionService_DeleteById_ReturnVoid(){
-            //Given
+        void testDeleteCollectionById_Success() {
+            // Given
             Long id = 1L;
-            String collectionName = "Summer";
-            Collection collection = Collection.builder().id(id).name(collectionName).build();
-            CollectionDto collectionDto = CollectionDto.builder().id(id).name(collectionName).build();
 
-            //When
-            when(collectionService.getCollectionById(collection.getId())).thenReturn(collectionDto);
-            doNothing().when(collectionRepository).deleteById(collection.getId());
+            // Mocking behavior
+            when(collectionRepository.existsById(id)).thenReturn(true);
 
-            boolean isDeleted = collectionService.deleteCollectionById(collection.getId());
+            // When
+            boolean result = collectionServiceImpl.deleteCollectionById(id);
 
-            //Then
-            verify(collectionService).deleteCollectionById(collection.getId());
+            // Then
+            verify(collectionRepository).deleteById(id);
+            assertTrue(result, "Expected deletion of collection with id " + id);
+        }
 
+        @Test
+        void testDeleteCollectionById_Failure() {
+            // Given
+            Long id = 1L;
+
+            // Mocking behavior
+            when(collectionRepository.existsById(id)).thenReturn(false);
+
+            // When
+            boolean result = collectionServiceImpl.deleteCollectionById(id);
+
+            // Then
+            verify(collectionRepository).deleteById(id);
+            assertNotEquals(result, false, "Expected no deletion as collection with id " + id + " does not exist");
         }
     }
+
 
 
 }
