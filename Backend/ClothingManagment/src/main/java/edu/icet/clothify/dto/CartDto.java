@@ -25,4 +25,7 @@ public class CartDto {
     private Double productTot;
     private boolean isCompleted;
 
+    public CartDto(Long id) {
+        this.id = id;
+    }
 }

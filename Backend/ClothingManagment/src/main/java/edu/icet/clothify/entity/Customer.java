@@ -36,4 +36,10 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<BillingInfo> billingInfo;
+
+    public Customer(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 }

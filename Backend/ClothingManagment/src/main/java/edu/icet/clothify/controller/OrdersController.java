@@ -5,6 +5,8 @@ import edu.icet.clothify.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 @CrossOrigin
@@ -15,5 +17,10 @@ public class OrdersController {
     @PostMapping("/add")
     public boolean addOrder(@RequestBody OrdersDto ordersDto){
         return ordersService.addOrder(ordersDto);
+    }
+
+    @GetMapping("/getAllByCustomer/{customerName}")
+    public List<OrdersDto> getAllOrdersByCustomer(@PathVariable String customerName){
+        return ordersService.getAllOrdersByCustomer(customerName);
     }
 }

@@ -8,7 +8,6 @@ import edu.icet.clothify.entity.Customer;
 import edu.icet.clothify.util.enums.OrderStatus;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +32,7 @@ public class OrdersDto {
     @NotBlank(message = "tax  is null")
     private Double tax;
     @NotBlank(message = "charging is null")
-    private String charge;
+    private Double charge;
     @NotBlank(message = "zipcode is null")
     private String zipCode;
     @NotBlank(message = "Total is null")

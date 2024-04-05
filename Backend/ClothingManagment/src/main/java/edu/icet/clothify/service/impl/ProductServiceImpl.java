@@ -55,7 +55,9 @@ public class ProductServiceImpl implements ProductService {
                 .desc(productDto.getDesc())
                 .price(productDto.getPrice())
                 .soldCount(productDto.getSoldCount())
-                .category(Category.builder().id(id).name(category.getName()).build())
+                .category(Category.builder()
+                        .id(id).name(category.getName())
+                        .build())
                 .subCategory(SubCategory.builder()
                         .id(subCategoryDto.getId())
                         .name(subCategoryDto.getName())
@@ -63,7 +65,8 @@ public class ProductServiceImpl implements ProductService {
                 .collection(Collection.builder()
                         .id(collection.getId())
                         .name(collection.getName())
-                        .build()).build();
+                        .build())
+                .build();
 
         Product product1=productRepository.save(product);
         if (product1.getId()!=null){
