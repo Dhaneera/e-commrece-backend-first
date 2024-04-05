@@ -42,4 +42,7 @@ public class Customer {
         this.name = name;
     }
 
+    public Customer(String customerName) {
+        this.name =customerName;
+    }
 }

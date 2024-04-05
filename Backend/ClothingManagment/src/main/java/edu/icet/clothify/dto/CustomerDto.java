@@ -38,4 +38,13 @@ public class CustomerDto {
     private List<Long> billingInfoIds;
     private List<OrdersDto> orders;
     private List<BillingInfoDto> billingInfo;
+
+    public CustomerDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public CustomerDto(String customerName) {
+        this.name = customerName;
+    }
 }

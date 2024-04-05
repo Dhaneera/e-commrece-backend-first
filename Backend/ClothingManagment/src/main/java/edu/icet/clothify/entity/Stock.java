@@ -41,4 +41,8 @@ public class Stock {
     @Column(name = "quantity")
     private int qty;
 
+    public Stock(Long id) {
+        this.id = id;
+    }
+
 }

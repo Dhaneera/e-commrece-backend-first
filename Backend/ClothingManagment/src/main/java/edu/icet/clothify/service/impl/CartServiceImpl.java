@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Boolean addCart(CartDto cartDto) {
-//         Cart cart=mapper.convertValue(cartDto, Cart.class);
+
         Cart cart = Cart.builder()
                 .qty(cartDto.getQty())
                 .completed(cartDto.isCompleted()).stockId(cartDto.getStockId()).productTot(cartDto.getProductTot()).id(cartDto.getId()).build();
@@ -47,7 +47,7 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public Cart upadateCart(Long id, CartDto cartDto) {
+    public Cart upadateCart(Long id, CartDto cartDto){
         if (!cartRepository.existsById(id)){
             throw new ResourceNotFoundException("Cart item not found : "+id);
         }
@@ -62,17 +62,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartDto> getAllCartDetails() {
-        Iterable<Cart> cartIterable = cartRepository.findAll();
-        Iterator<Cart> cartIterator = cartIterable.iterator();
+        List<Cart> carts = (List<Cart>) cartRepository.findAll(); // Retrieve directly as a list
         List<CartDto> cartDtos = new ArrayList<>();
-        while(cartIterator.hasNext()){
-            Cart cart = cartIterator.next();
-            CartDto cartDto=mapper.convertValue(cart , CartDto.class);
+        for (Cart cart : carts) {
+            CartDto cartDto = new CartDto();
+            cartDto.setId(cart.getId()); // Map common fields
+            cartDto.setStockId(new Stock(cart.getId())); // Set stock ID directly
             cartDtos.add(cartDto);
         }
         return cartDtos;
-    }
-
+     }
     @Override
     public boolean updateStatus(long id) {
         Optional<Cart> byId = cartRepository.findById(id);
@@ -81,24 +80,19 @@ public class CartServiceImpl implements CartService {
             cartRepository.deleteById(id);
             cart.setCompleted(true);
             return true;
-
         }
         return false;
     }
-
     @Override
     public CartDto getCartById(long id) {
-        Optional<Cart> byId = cartRepository.findById(id);
-        if (byId.isPresent()){
-            Cart cart=byId.get();
-            CartDto cartDto=mapper.convertValue(cart,CartDto.class);
-            cartDto.setStockId(Stock.builder().id(cart.getId()).build());
-            cartDto.setStockId(cart.getStockId());
+        Optional<Cart> optionalCart = cartRepository.findById(id);
+        if (optionalCart.isPresent()) {
+            Cart cart = optionalCart.get();
+            CartDto cartDto = new CartDto();
+            cartDto.setId(cart.getId());
+            cartDto.setStockId(new Stock(cart.getId()));
             return cartDto;
-
         }
         return null;
     }
-
-
 }

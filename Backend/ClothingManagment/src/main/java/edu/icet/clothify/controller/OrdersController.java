@@ -31,10 +31,10 @@ public class OrdersController {
         List<OrdersDto> orders = ordersService.getAllOrdersByCustomer(customerName);
 
         if (orders !=null && !orders.isEmpty()) {
-            // Return 404 Not Found if no orders are found for the customer
+
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            // Return 200 OK with the list of orders
+
             return new ResponseEntity<>(orders, HttpStatus.OK);
         }
     }

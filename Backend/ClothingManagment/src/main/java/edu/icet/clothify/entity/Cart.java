@@ -33,4 +33,22 @@ public class Cart {
     private Orders orders;
 
     private Boolean completed;
+
+    public Cart(Long id) { // Add the missing constructor
+        this.id = id;
+    }
+
+
+    public Cart(Long id, Stock stockId, int qty, boolean completed, Double productTot) {
+        this.id = id;
+        this.qty = qty;
+        this.completed = completed;
+        this.stockId = stockId;
+        this.productTot = productTot;
+    }
+
+    public Cart(long id, boolean completed) {
+        this.id=id;
+        this.completed=completed;
+    }
 }

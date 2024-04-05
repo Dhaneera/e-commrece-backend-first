@@ -72,7 +72,6 @@ public class OrdersServiceImpl implements OrdersService {
         Orders ordersToSave=mapper.convertValue(orderDto,Orders.class);
         ordersToSave.setCart(Cart.builder().id(orderDto.getCart().getId()).build());
         ordersToSave.setCustomer(Customer.builder().id(customerDto.getId()).build());
-//        ordersToSave.setBillingInfo(BillingInfo.builder().id(orderDto.getBillingInfo().getId()).build());
         Orders saved = ordersRepository.save(ordersToSave);
         return saved.getId() != null;
     }
@@ -89,11 +88,9 @@ public class OrdersServiceImpl implements OrdersService {
         List<Orders> orders = ordersRepository.findByCustomerId(customerDto.getId());
 
 
-        List<OrdersDto> ordersDtoList = orders.stream()
+        return orders.stream()
                 .map(this::convertOrderToOrderDto)
                 .collect(Collectors.toList());
-
-        return ordersDtoList;
 
 
 
@@ -110,6 +107,15 @@ public class OrdersServiceImpl implements OrdersService {
         orderDto.setZipCode(orders.getZipCode());
         orderDto.setTot(orders.getTot());
         orderDto.setCity(orders.getCity());
+
+        if (orders.getCustomer() != null) {
+            orderDto.setCustomer(new Customer(orders.getCustomer().getId(), orders.getCustomer().getName())); // Adapt based on your CustomerDto fields
+        }
+
+        // Convert cart information (optional)
+        if (orders.getCart() != null) {
+            orderDto.setCart(new Cart(orders.getCart().getId())); // Adapt based on your CartDto fields
+        }
 
         return orderDto;
     }
