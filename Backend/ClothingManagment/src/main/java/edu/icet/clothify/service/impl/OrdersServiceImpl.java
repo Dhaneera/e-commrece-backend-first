@@ -79,14 +79,23 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public List<OrdersDto> getAllOrdersByCustomer(String customerName) {
-        Optional<CustomerDto> customerDtoOptional = Optional.ofNullable(customerService.getCustomerByName(customerName));
+        CustomerDto customerDto = customerService.getCustomerByName(customerName);
 
-        return customerDtoOptional.map(CustomerDto::getId)
-                .map(ordersRepository::findByCustomerId)
-                .orElseGet(Collections::emptyList) // Return empty list if customer not found
-                .stream()
+        if (customerDto == null) {
+
+            return Collections.emptyList();
+        }
+
+        List<Orders> orders = ordersRepository.findByCustomerId(customerDto.getId());
+
+
+        List<OrdersDto> ordersDtoList = orders.stream()
                 .map(this::convertOrderToOrderDto)
                 .collect(Collectors.toList());
+
+        return ordersDtoList;
+
+
 
     }
 
