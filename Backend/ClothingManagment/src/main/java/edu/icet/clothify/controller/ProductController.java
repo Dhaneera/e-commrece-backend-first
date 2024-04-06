@@ -5,6 +5,7 @@ import edu.icet.clothify.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -51,7 +52,15 @@ public class ProductController {
         return productService.getProductByName(name);
     }
 
-
+    @GetMapping("/byStock")  // Handle GET requests to /products/byStock
+    public ResponseEntity<List<ProductDto>> getProductByStock(@RequestParam Long stockId) {
+        List<ProductDto> products = productService.getProductByStock(stockId);
+        return ResponseEntity.ok(products);
+    }
+    @DeleteMapping("/remove/{id}")
+    public Boolean  deleteProduct(@PathVariable Long id){
+        return productService.deleteProduct(id);
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

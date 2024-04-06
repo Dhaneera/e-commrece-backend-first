@@ -13,6 +13,7 @@ import edu.icet.clothify.repository.OrdersRepository;
 import edu.icet.clothify.service.CartService;
 import edu.icet.clothify.service.CustomerService;
 import edu.icet.clothify.service.OrdersService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,12 +46,13 @@ public class OrdersServiceImpl implements OrdersService {
 
 
     @Override
-    public Orders updateOrders(Long id, Orders orders) {
+    public Orders updateOrders(Long id, OrdersDto ordersDto) {
         if (!ordersRepository.existsById(id)){
             throw new ResourceNotFoundException("Order is not valid to given id : "+id);
         }
-        orders.setId(id);
-        return ordersRepository.save(orders);
+        Orders existingOrder =ordersRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Order not found with this id :"+id));
+        BeanUtils.copyProperties(ordersDto,existingOrder,"id");
+        return ordersRepository.save(existingOrder);
     }
 
     @Override

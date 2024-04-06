@@ -1,6 +1,8 @@
 package edu.icet.clothify.controller;
 
 import edu.icet.clothify.dto.OrdersDto;
+import edu.icet.clothify.entity.Orders;
+import edu.icet.clothify.entity.Product;
 import edu.icet.clothify.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,5 +39,14 @@ public class OrdersController {
 
             return new ResponseEntity<>(orders, HttpStatus.OK);
         }
+    }
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteOrdersById(@PathVariable Long id){
+        return ordersService.deleteOrders(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public Orders updateProduct(@PathVariable Long id, @RequestBody OrdersDto ordersDto){
+        return ordersService.updateOrders(id,ordersDto);
     }
 }

@@ -40,12 +40,11 @@ public class BillingInfoServiceImpl implements BillingInfoService {
     @Override
     public  Boolean createBillingInfo(BillingInfoDto billingInfoDto) {
         CustomerDto customerDto=customerService.getCustomerByName(billingInfoDto.getCustomer().getName());
-//        OrdersDto ordersDto = ordersService
+
        BillingInfo billingInfo = mapper.convertValue(billingInfoDto, BillingInfo.class);
         BillingInfo save = billingInfoRepository.save(billingInfo);
         return save.getId()!=null;
     }
-
     @Override
     public BillingInfo updateBillingInfo(Long id, BillingInfoDto billingInfoDto) {
        if (! billingInfoRepository.existsById(id)){
@@ -53,9 +52,7 @@ public class BillingInfoServiceImpl implements BillingInfoService {
        }
        BillingInfo existingbill= billingInfoRepository.findById(id).orElseThrow(()->
                new ResourceNotFoundException("bill information not found with this id: " + id));
-
         BeanUtils.copyProperties(billingInfoDto,existingbill,"id");
               return billingInfoRepository.save(existingbill);
     }
-
 }

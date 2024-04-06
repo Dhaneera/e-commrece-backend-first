@@ -2,6 +2,7 @@ package edu.icet.clothify.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.CategoryDto;
 import edu.icet.clothify.dto.CollectionDto;
 import edu.icet.clothify.dto.ProductDto;
@@ -136,9 +137,31 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto getProductByName(String name) {
-        Product product = productRepository.getByName(name);
+        Product product=productRepository.getByName(name);
         return objectMapper.convertValue(product,ProductDto.class);
-
     }
+
+    @Override
+    public List<ProductDto> getProductByStock(Long StockId) {
+
+        List<ProductDto> getProducts = getAllProducts();
+        List<ProductDto> getProductWithStock = new ArrayList<>();
+        // Consider logging a message or taking appropriate action
+        for (ProductDto productDto : getProducts)
+            System.out.println("No products found with stock ID: " + StockId);
+        return getProductWithStock;
+    }
+    @Override
+    public Boolean deleteProduct(Long id) {
+        if (productRepository.existsById(id)) {productRepository.deleteById(id);
+            return true;}
+        else {
+            throw new ResourceNotFoundException("product info not available for this id to delete: "+id);
+        }
+    }
+
+
     //TODO IF NEEDED SUBCATEGORY OR COLLECTION BY GETTING PRODUCT CAN BE IMPLEMENT
+
+
 }
