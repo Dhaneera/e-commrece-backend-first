@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.clothify.config.ResourceNotFoundException;
 import edu.icet.clothify.dto.CartDto;
 import edu.icet.clothify.entity.Cart;
+import edu.icet.clothify.entity.Customer;
 import edu.icet.clothify.entity.Orders;
 import edu.icet.clothify.entity.Stock;
 import edu.icet.clothify.repository.CartRepository;
@@ -39,7 +40,7 @@ public class CartServiceImpl implements CartService {
 
         Cart cart = Cart.builder()
                 .qty(cartDto.getQty())
-                .completed(cartDto.isCompleted()).stockId(cartDto.getStockId()).productTot(cartDto.getProductTot()).id(cartDto.getId()).build();
+                .completed(cartDto.isCompleted()).stockId(cartDto.getStockId()).productTot(cartDto.getProductTot()).id(cartDto.getId()).customerId(cartDto.getCustomerId()).build();
         Cart saved = cartRepository.save(cart);
         return saved.getId() != null;
     }

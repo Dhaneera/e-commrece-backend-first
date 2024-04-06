@@ -1,5 +1,6 @@
 package edu.icet.clothify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,10 @@ public class Customer {
 
     @Column(name = "Email")
     private String mail;
+
+    @OneToOne(mappedBy = "customerId")
+    @JsonIgnore
+    private Cart cart;
 
     @Column(name = "UserName")
     private String name ;

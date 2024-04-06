@@ -23,6 +23,10 @@ public class Cart {
     @JsonIgnore
     private Stock stockId;
 
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerId;
+
     @Column(name = "Quantity")
     private int qty;
 
